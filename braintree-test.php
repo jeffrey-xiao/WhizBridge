@@ -25,4 +25,19 @@ $result = Braintree.Transaction::sale([
         'amount' => $amount,
         'paymentMethodNonce' => $nonce
     ]);
-echo($nonce . " for $" . $amount . "\n");
+$name = "Valid payment";
+switch ($nonce) {
+    case "fake-valid-visa-nonce":
+        $name = "Visa";
+        break;
+    case "fake-valid-mastercard-nonce":
+        $name = "Mastercard";
+        break;
+    case "fake-valid-debit-nonce":
+        $name = "Debit";
+        break;
+    default:
+        break;
+}
+
+echo($name . " for $" . $amount . "\n");
