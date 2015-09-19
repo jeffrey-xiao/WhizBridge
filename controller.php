@@ -2,6 +2,10 @@
 require("model.php");
 require "twilio-php/services/Twilio.php";
 require "braintree-php/lib/Braintree.php";
+Braintree_Configuration::environment('sandbox');
+Braintree_Configuration::merchantId('f8hz5cfs97665c2r');
+Braintree_Configuration::publicKey('289njc8rrdf47cwk');
+Braintree_Configuration::privateKey('e23e1e9b16adfccd3208096b42bba5a9');
 
 class Controller
 {
