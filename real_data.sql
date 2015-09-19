@@ -28,7 +28,7 @@ CREATE TABLE `Auth` (
   `created_at` timestamp NULL DEFAULT NULL,
   `whiz_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`auth_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `Auth` (
 
 LOCK TABLES `Auth` WRITE;
 /*!40000 ALTER TABLE `Auth` DISABLE KEYS */;
-INSERT INTO `Auth` VALUES (1,'da39a3ee5e6b4b0d3255bfef95601890afd80709QELo/YNKki,c','2015-09-19 05:58:51',NULL),(2,'da39a3ee5e6b4b0d3255bfef95601890afd80709110E2u.tA.Jk','2015-09-19 05:59:19',NULL),(3,'da39a3ee5e6b4b0d3255bfef95601890afd80709kB;Ll6v,;g7N','2015-09-19 06:04:47',NULL),(4,'da39a3ee5e6b4b0d3255bfef95601890afd80709Nj5kwOnJy5hQ','2015-09-19 06:25:57',2),(5,'da39a3ee5e6b4b0d3255bfef95601890afd80709fBq6tuYZR1,y','2015-09-19 06:58:15',2),(8,'da39a3ee5e6b4b0d3255bfef95601890afd80709XUYwbbt8wQ8/','2015-09-19 07:32:41',NULL),(26,'da39a3ee5e6b4b0d3255bfef95601890afd807093YwcLiTLnKGX','2015-09-19 15:41:43',3),(31,'da39a3ee5e6b4b0d3255bfef95601890afd80709IdTSmVDiDCg0','2015-09-19 19:56:39',11);
+INSERT INTO `Auth` VALUES (1,'da39a3ee5e6b4b0d3255bfef95601890afd80709QELo/YNKki,c','2015-09-19 05:58:51',NULL),(2,'da39a3ee5e6b4b0d3255bfef95601890afd80709110E2u.tA.Jk','2015-09-19 05:59:19',NULL),(3,'da39a3ee5e6b4b0d3255bfef95601890afd80709kB;Ll6v,;g7N','2015-09-19 06:04:47',NULL),(4,'da39a3ee5e6b4b0d3255bfef95601890afd80709Nj5kwOnJy5hQ','2015-09-19 06:25:57',2),(5,'da39a3ee5e6b4b0d3255bfef95601890afd80709fBq6tuYZR1,y','2015-09-19 06:58:15',2),(8,'da39a3ee5e6b4b0d3255bfef95601890afd80709XUYwbbt8wQ8/','2015-09-19 07:32:41',NULL),(26,'da39a3ee5e6b4b0d3255bfef95601890afd807093YwcLiTLnKGX','2015-09-19 15:41:43',3);
 /*!40000 ALTER TABLE `Auth` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,6 +60,7 @@ CREATE TABLE `Job` (
   `job_address` varchar(300) DEFAULT NULL,
   `job_hash` varchar(128) DEFAULT NULL,
   `job_completed` tinyint(1) DEFAULT NULL,
+  `job_phonenumber` varchar(12) DEFAULT NULL,
   PRIMARY KEY (`job_id`,`buyer_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -70,7 +71,7 @@ CREATE TABLE `Job` (
 
 LOCK TABLES `Job` WRITE;
 /*!40000 ALTER TABLE `Job` DISABLE KEYS */;
-INSERT INTO `Job` VALUES (47,0,'0000-00-00 00:00:00','Clean my laptop','my laptop is dirty pls clean',20,43.0100661,-79.2520412,NULL,NULL,NULL),(83,0,'2015-09-19 19:42:05','Data Lost','Accidentally deleted important pictures',75,43.8424585,-79.3035977,NULL,'914b15088880cf4bfa9b12ff31c5a209',NULL),(84,0,'2015-09-19 19:43:00','Need to backup data','Have important files that should be backed up',150,51.9543738,-111.1020787,NULL,'9de60f7117d8cb729b9e9cf3adeacc2a',NULL),(85,0,'2015-09-19 19:43:37','Basic System Optimization','My system is running slowly',25,46.212655,-72.4301159,NULL,'20f0c3166b40c5108957c7c232d1be0c',NULL),(86,0,'2015-09-19 19:44:30','Advanced System Optimization','My system has a trojan! It is infected with malware!',50,45.5270415,-73.5610798,NULL,'4b6abd77ccaa9e0efd986f13809e0249',NULL),(87,0,'2015-09-19 19:46:09','Help me download ubuntu','I don\'t like Windows 10!',50,52.2698105,-113.8104141,NULL,'884e37136b483f75455102905e608337',NULL),(88,0,'2015-09-19 19:46:56','Clean my computer','My computer is dirty and I would like it cleaned',25,43.4476109,-80.4893965,NULL,'4271c3e13744d3344373d0ef7e448a23',NULL);
+INSERT INTO `Job` VALUES (83,0,'2015-09-19 19:42:05','Data Lost','Accidentally deleted important pictures',75,43.8424585,-79.3035977,NULL,'914b15088880cf4bfa9b12ff31c5a209',NULL,NULL),(84,0,'2015-09-19 19:43:00','Need to backup data','Have important files that should be backed up',150,51.9543738,-111.1020787,NULL,'9de60f7117d8cb729b9e9cf3adeacc2a',NULL,NULL),(85,0,'2015-09-19 19:43:37','Basic System Optimization','My system is running slowly',25,46.212655,-72.4301159,NULL,'20f0c3166b40c5108957c7c232d1be0c',NULL,NULL),(86,0,'2015-09-19 19:44:30','Advanced System Optimization','My system has a trojan! It is infected with malware!',50,45.5270415,-73.5610798,NULL,'4b6abd77ccaa9e0efd986f13809e0249',NULL,NULL),(87,0,'2015-09-19 19:46:09','Help me download ubuntu','I don\'t like Windows 10!',50,52.2698105,-113.8104141,NULL,'884e37136b483f75455102905e608337',NULL,NULL),(88,0,'2015-09-19 19:46:56','Clean my computer','My computer is dirty and I would like it cleaned',25,43.4476109,-80.4893965,NULL,'4271c3e13744d3344373d0ef7e448a23',NULL,NULL);
 /*!40000 ALTER TABLE `Job` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,4 +141,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-19 15:59:33
+-- Dump completed on 2015-09-19 16:43:17

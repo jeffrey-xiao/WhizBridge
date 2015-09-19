@@ -347,6 +347,12 @@ class Model
             "job_id" => $job_id), array(PDO::PARAM_INT));
         return ($response !== false ? $response->job_completed : false);
     }
+	
+	public function getJobIdForPhonenumber ($job_phonenumber) {
+		$response = $this->objectSelect("Job", array("job_id"), array(
+			"job_phonenumber" => $job_phonenumber), array(PDO::PARAM_INT));
+		return ($response !== false ? $response->job_id : false);
+	}
 
 
     //public function deletes auth_hash given
