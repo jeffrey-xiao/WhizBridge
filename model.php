@@ -337,6 +337,13 @@ class Model
         return ($response !== false ? $response->whiz_id : false);
     }
 
+    public function getJobCompletedForJobId ($job_id) {
+        $response = $this->objectSelect("JobJoin", array("job_completed"), array(
+            "job_id" => $job_id), array(PDO::PARAM_INT));
+        return ($response !== false ? $response->job_completed : false);
+    }
+
+
     //public function deletes auth_hash given
     //takes:    auth_hash, setCookie
     //returns:  true or false, depending on success
@@ -542,7 +549,7 @@ class Model
     // NEW FUNCTION
     public function fetchJobs($whiz_id)
     {
-        $query = "SELECT * FROM whizbridge_db.Job WHERE job_completed IS NULL AND job_id NOT IN (select job_id from JobJoin WHERE whiz_id <> ".$whiz_id.") ORDER BY created_at DESC LIMIT 50; ";
+        $query = "SELECT * FROM whizbridge_db.Job WHERE job_id NOT IN (select job_id from JobJoin WHERE whiz_id <> ".$whiz_id.") ORDER BY created_at DESC LIMIT 50; ";
         try {
             $sth = $this->dbh->prepare($query);
             $sth->bindParam(':whiz_id', $whiz_id, PDO::PARAM_INT);
@@ -582,6 +589,21 @@ class Model
 
     public function cancelWhizJob ($job_id) {
         return $this->delete("JobJoin", array("job_id" => $job_id));
+    }
+
+    public function completeWhizJob ($job_id) {
+        $query = "UPDATE JobJoin SET job_completed=1 WHERE job_id=:job_id ";
+
+        try {
+            $sth = $this->dbh->prepare($query);
+            //$sth->bindParam(":text", strip_tags(htmlentities($text)));
+            $sth->bindParam(":job_id", $job_id , PDO::PARAM_INT );
+            $sth->execute();
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        return ($sth->rowCount() > 0) ? true : false;
     }
 
     public function checkIfJobHashExists($hash){

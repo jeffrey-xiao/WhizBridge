@@ -2,10 +2,6 @@
 require("model.php");
 require "twilio-php/services/Twilio.php";
 require "braintree-php/lib/Braintree.php";
-Braintree_Configuration::environment('sandbox');
-Braintree_Configuration::merchantId('f8hz5cfs97665c2r');
-Braintree_Configuration::publicKey('289njc8rrdf47cwk');
-Braintree_Configuration::privateKey('e23e1e9b16adfccd3208096b42bba5a9');
 
 class Controller
 {
@@ -31,7 +27,8 @@ class Controller
             "cancelJob" => "cancelJob",
             "postJob" => "postJob",
             "sendSMS" => "sendSMS",
-            "cancelWhizJob" => "cancelWhizJob"
+            "cancelWhizJob" => "cancelWhizJob",
+            "completeWhizJob" => "completeWhizJob"
         );
         date_default_timezone_set("UTC");
         if (strlen($_GET['function']) > 0) {
@@ -140,8 +137,10 @@ class Controller
 
             foreach($jobs as $current){
                 $response = $this->model->getWhizIdForJobId($current->job_id);
+                $isCompleted = $this->model->getJobCompletedForJobId($current->job_id);
                 array_push($big_arr, array($current->job_name,floatval( $current->job_latitude), floatval($current->job_longitude), $current->job_description, intval($current->job_id), intval($current->job_price),
-                    ($response == false ? false : $response == $cur_user->whiz_id)));
+                    ($response == false ? false : $response == $cur_user->whiz_id),
+                    $isCompleted));
             }
 
             $big_arr = json_encode($big_arr);
@@ -306,6 +305,11 @@ class Controller
 
     private function cancelWhizJob () {
         $a = $this->model->cancelWhizJob($_POST['job_id']);
+        echo json_encode($a);
+    }
+
+    private function completeWhizJob () {
+        $a = $this->model->completeWhizJob($_POST['job_id']);
         echo json_encode($a);
     }
 

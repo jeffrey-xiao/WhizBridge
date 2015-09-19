@@ -159,15 +159,25 @@
                         var price = locations[i][5];
                         var m = markers[i];
                         // console.log(jid + " " + locations[i][6]);
-                        var content = !locations[i][6] ? ('<p> Name: ' + name + '</p>'+
+                        var content = "";
+                        if (locations[i][6]) {
+                            if (locations[i][7])
+                                content = ('<p> Name: ' + name + '</p>'+
+                                    '<p> Desc: ' + desc + '</p>' +
+                                    '<p> Price: ' + price + '</p>' +
+                                '<p>Waiting for buyer confirmation</p>');
+                            else
+                                content = ('<p> Name: ' + name + '</p>'+
+                                    '<p> Desc: ' + desc + '</p>' +
+                                    '<p> Price: ' + price + '</p>' +
+                                    '<button onclick=completeWhizJob('+jid+')>Complete Job!</button>' +
+                                    '<button onclick=cancelWhizJob('+jid+')>Cancel Job!</button>');
+                        } else {
+                            content = ('<p> Name: ' + name + '</p>'+
                                 '<p> Desc: ' + desc + '</p>' +
                                 '<p> Price: ' + price + '</p>' +
-                                '<button onclick=takeJob('+jid+')>Take Job!</button>') :
-                                ('<p> Name: ' + name + '</p>'+
-                                '<p> Desc: ' + desc + '</p>' +
-                                '<p> Price: ' + price + '</p>' +
-                                '<button onclick=completeWhizJob('+jid+')>Complete Job!</button>' +
-                                '<button onclick=cancelWhizJob('+jid+')>Cancel Job!</button>');
+                                '<button onclick=takeJob('+jid+')>Take Job!</button>');
+                        }
                         google.maps.event.addListener(m, 'click', function() {
                             map.setZoom(12);
                             map.setCenter(m.getPosition());
@@ -184,6 +194,23 @@
 
                 map.fitBounds(bounds);
             }
+            function completeWhizJob (job_id) {
+                $.ajax({
+                    type: "POST",
+                    url: '/completeWhizJob',
+                    data: {job_id},
+                    cache: false,
+
+                    success: function (html) {
+                        // console.log(job_id);
+                        if( html == "true" ){
+                            window.location.reload();
+                        } else {
+                            //catch error here
+                        }
+                    }
+                });
+            }
             function cancelWhizJob (job_id) {
                 $.ajax({
                     type: "POST",
@@ -192,7 +219,7 @@
                     cache: false,
 
                     success: function (html) {
-                        console.log(job_id);
+                        // console.log(job_id);
                         if( html == "true" ){
                             window.location.reload();
                         } else {
