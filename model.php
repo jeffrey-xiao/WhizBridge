@@ -660,7 +660,7 @@ class Model
                                    "job_description" => $descr,
                                    "job_address" => $address,
                                    "job_latitude" => $lat,
-                                   "job_longitude" => $job_longitude,
+                                   "job_longitude" => $long,
                                   "job_price" => $price,
                                   "created_at" => date('Y-m-d H:i:s')));
         return $a;
