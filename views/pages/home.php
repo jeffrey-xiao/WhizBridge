@@ -163,7 +163,7 @@
                             map.setCenter(m.getPosition());
                             infowindow.setContent('<p> Name: ' + name + '</p>'+
                                 '<p> Desc: ' + desc + '</p>' +
-                                '<button>Take Job!</button>'
+                                    '<form action="takeJob" method="post"><input type="Submit" value="Take Job!"></form>'
                                 );
 
                             // TODO!!!!! MAKE THIS ONCLICK
