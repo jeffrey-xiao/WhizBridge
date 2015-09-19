@@ -337,8 +337,13 @@ class Model
         return ($response !== false ? $response->whiz_id : false);
     }
 
-    public function getJobCompletedForJobId ($job_id) {
+    public function getWhizJobCompletedForJobId ($job_id) {
         $response = $this->objectSelect("JobJoin", array("job_completed"), array(
+            "job_id" => $job_id), array(PDO::PARAM_INT));
+        return ($response !== false ? $response->job_completed : false);
+    }
+    public function getUserJobCompletedForJobId ($job_id) {
+        $response = $this->objectSelect("Job", array("job_completed"), array(
             "job_id" => $job_id), array(PDO::PARAM_INT));
         return ($response !== false ? $response->job_completed : false);
     }
@@ -642,20 +647,20 @@ class Model
         }
         return ($sth->rowCount() > 0) ? true : false;
     }
-    
-    
+
+
     public function APIcreateJob($name, $descr, $address, $lat, $long, $price, $email){
-        $a = $this->insert("Job", array("job_name"=>$name, 
-                                   "job_description" => $descr, 
-                                   "job_address" => $address, 
-                                   "job_latitude" => $lat, 
+        $a = $this->insert("Job", array("job_name"=>$name,
+                                   "job_description" => $descr,
+                                   "job_address" => $address,
+                                   "job_latitude" => $lat,
                                    "job_longitude" => $job_longitude,
                                   "job_price" => $price,
                                   "created_at" => date('Y-m-d H:i:s')));
         return $a;
-        
+
     }
-    
+
     public function APIfetchJobs($whiz_id){
            $query = "SELECT * FROM whizbridge_db.Job WHERE job_completed IS NULL AND job_id NOT IN (select job_id from JobJoin) ORDER BY created_at DESC LIMIT 50; ";
         try {

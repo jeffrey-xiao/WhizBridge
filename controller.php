@@ -100,9 +100,10 @@ class Controller
     private function jobPage($hash){
         $job = $this->model->checkIfJobHashExists($hash);
 
+        $whizCompleted = $this->model->getWhizJobCompletedForJobId($job->job_id);
+        $userCompleted = $this->model->getUserJobCompletedForJobId($job->job_id);
 
-
-        if($job !== false){
+        if($job !== false && (!$whizCompleted || !$userCompleted)){
             $this->loadPage("job", array("job" => $job));
         } else {
             $this->loadPage("404", null);
@@ -137,10 +138,12 @@ class Controller
 
             foreach($jobs as $current){
                 $response = $this->model->getWhizIdForJobId($current->job_id);
-                $isCompleted = $this->model->getJobCompletedForJobId($current->job_id);
+                $isWhizCompleted = $this->model->getWhizJobCompletedForJobId($current->job_id);
+                $isUserCompleted = $this->model->getUserJobCompletedForJobId($current->job_id);
                 array_push($big_arr, array($current->job_name,floatval( $current->job_latitude), floatval($current->job_longitude), $current->job_description, intval($current->job_id), intval($current->job_price),
                     ($response == false ? false : $response == $cur_user->whiz_id),
-                    $isCompleted));
+                    $isWhizCompleted,
+                    $isUserCompleted));
             }
 
             $big_arr = json_encode($big_arr);
@@ -315,7 +318,11 @@ class Controller
 
     private function completeJob () {
         $job_id = $_POST["job_id"];
-        echo $this->model->updateJobComplete($job_id);
+        ?>
+        <h2>Job marked as completed!</h2>
+        <a href = "/">Return to Home</a>
+        <?php
+        //echo $this->model->updateJobComplete($job_id);
     }
     private function cancelJob () {
         $job_id = $_POST["job_id"];

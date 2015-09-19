@@ -130,66 +130,68 @@
                 var bounds = new google.maps.LatLngBounds();
 
                 for(i = 0; i < locations.length; i++) {
-                    markers.push(new google.maps.Marker({
-                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                        map: map,
-                        title: locations[i][0]
-                    }));
-                    /*google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                        return function() {
-                            infowindow.setContent(locations[i][0]);
-                            infowindow.open(map, marker);
-                        }
+                    if (!locations[i][7] || !locations[i][8]) {
+                        markers.push(new google.maps.Marker({
+                            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                            map: map,
+                            title: locations[i][0]
+                        }));
+                        /*google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                            return function() {
+                                infowindow.setContent(locations[i][0]);
+                                infowindow.open(map, marker);
+                            }
 
-                    })(marker, i));
-                    infowindows.push(new google.maps.InfoWindow({
-                    content: locations[i][0]
-                    }));
-                    markers[i].addListener('click', function() {
-                    infowindows[i].open(map, markers[i]);
-                    });*/
-                    var infowindow = new google.maps.InfoWindow({
-                        content: locations[i][0],
-                        position: new google.maps.LatLng(locations[i][1], locations[i][2])
-                    });
-                    (function(){
-                        var name = locations[i][0];
-                        var desc = locations[i][3];
-                        var jid = locations[i][4];
-                        var price = locations[i][5];
-                        var m = markers[i];
-                        // console.log(jid + " " + locations[i][6]);
-                        var content = "";
-                        if (locations[i][6]) {
-                            if (locations[i][7])
-                                content = ('<p> Name: ' + name + '</p>'+
-                                    '<p> Desc: ' + desc + '</p>' +
-                                    '<p> Price: ' + price + '</p>' +
-                                '<p>Waiting for buyer confirmation</p>');
-                            else
-                                content = ('<p> Name: ' + name + '</p>'+
-                                    '<p> Desc: ' + desc + '</p>' +
-                                    '<p> Price: ' + price + '</p>' +
-                                    '<button onclick=completeWhizJob('+jid+')>Complete Job!</button>' +
-                                    '<button onclick=cancelWhizJob('+jid+')>Cancel Job!</button>');
-                        } else {
-                            content = ('<p> Name: ' + name + '</p>'+
-                                '<p> Desc: ' + desc + '</p>' +
-                                '<p> Price: ' + price + '</p>' +
-                                '<button onclick=takeJob('+jid+')>Take Job!</button>');
-                        }
-                        google.maps.event.addListener(m, 'click', function() {
-                            map.setZoom(12);
-                            map.setCenter(m.getPosition());
-                            infowindow.setContent(content);
-
-                            // TODO!!!!! MAKE THIS ONCLICK
-                            infowindow.open(map, this);
-
+                        })(marker, i));
+                        infowindows.push(new google.maps.InfoWindow({
+                        content: locations[i][0]
+                        }));
+                        markers[i].addListener('click', function() {
+                        infowindows[i].open(map, markers[i]);
+                        });*/
+                        var infowindow = new google.maps.InfoWindow({
+                            content: locations[i][0],
+                            position: new google.maps.LatLng(locations[i][1], locations[i][2])
                         });
-                    }()) // closure inclusion
-                    //console.log('info windows yo' + i);
-                    bounds.extend(markers[i].getPosition());
+                        (function(){
+                            var name = locations[i][0];
+                            var desc = locations[i][3];
+                            var jid = locations[i][4];
+                            var price = locations[i][5];
+                            var m = markers[i];
+                            // console.log(jid + " " + locations[i][6]);
+                            var content = "";
+                            if (locations[i][6]) {
+                                if (locations[i][7])
+                                    content = ('<p> Name: ' + name + '</p>'+
+                                        '<p> Desc: ' + desc + '</p>' +
+                                        '<p> Price: ' + price + '</p>' +
+                                    '<p>Waiting for buyer confirmation</p>');
+                                else
+                                    content = ('<p> Name: ' + name + '</p>'+
+                                        '<p> Desc: ' + desc + '</p>' +
+                                        '<p> Price: ' + price + '</p>' +
+                                        '<button onclick=completeWhizJob('+jid+')>Complete Job!</button>' +
+                                        '<button onclick=cancelWhizJob('+jid+')>Cancel Job!</button>');
+                            } else {
+                                content = ('<p> Name: ' + name + '</p>'+
+                                    '<p> Desc: ' + desc + '</p>' +
+                                    '<p> Price: ' + price + '</p>' +
+                                    '<button onclick=takeJob('+jid+')>Take Job!</button>');
+                            }
+                            google.maps.event.addListener(m, 'click', function() {
+                                map.setZoom(12);
+                                map.setCenter(m.getPosition());
+                                infowindow.setContent(content);
+
+                                // TODO!!!!! MAKE THIS ONCLICK
+                                infowindow.open(map, this);
+
+                            });
+                        }()) // closure inclusion
+                        //console.log('info windows yo' + i);
+                        bounds.extend(markers[i].getPosition());
+                    }
                 }
 
                 map.fitBounds(bounds);
