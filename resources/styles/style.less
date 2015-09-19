@@ -1,5 +1,5 @@
 @text-color: #414042;
-@bg-color: #414042;
+@bg-color: #FDFDFD;
 @accent-color: #f7931e;
 //@accent-color: #FF9800;
 @active-accent-color: #f8a423;
@@ -12,6 +12,34 @@
     color: @color;
 }
 
+.dropdownButton {
+    size:50px;
+    background-color:@bg-color;
+    &:hover {
+        background: @active-accent-color;
+    }
+    cursor:pointer;
+    font:Arial;
+    width:auto;
+}
+.dropdownBody{
+    overflow:hidden;
+}
+.leftFields{
+    width: 40%;
+    text-align:right;
+    display:inline-block;
+    float: left;
+    font-size:14px;
+    line-height: 2;
+}
+.rightFields{
+    line-height:1.72;
+     display:inline-block;
+     text-align:left;
+     float:left;
+     overflow-x:hidden;
+}
 .gradient4f (@p1,@c1,@p2,@c2,@p3,@c3,@p4,@c4) {
     background: @c1;
     background: -moz-linear-gradient(top, @c1 @p1, @c2 @p2, @c3 @p3, @c4 @p4);
@@ -35,11 +63,11 @@ body {
     -webkit-user-select: none;
     -o-user-select: none;
     user-select: none;
-    
+
     img{
-        user-drag: none; 
+        user-drag: none;
         -moz-user-select: none;
-        -webkit-user-drag: none; 
+        -webkit-user-drag: none;
     }
 }
 
@@ -113,9 +141,9 @@ header {
                 -moz-border-radius: @radius;
                 border-radius: @radius;
         }
-        
+
         input[type="submit"]{
-                
+
                 height:34px;
             }
     }
@@ -278,7 +306,7 @@ header {
                 -webkit-border-radius: @radius;
                 -moz-border-radius: @radius;
                 border-radius: @radius;
-                
+
             }
             input[type="submit"]{
                 color:#FFF;
@@ -327,24 +355,24 @@ header {
         .settingsOption{
             border-bottom: 1px solid @border-color;
             margin: 5px 0;
-           
+
             color: grey;
             padding: 10px 10px;
-            
+
             &:last-child {
                 border: none;
             }
-            
+
             &:hover{
                 cursor:pointer;
             }
-            
+
         }
-        
+
         .settingsOptionSelected{
             font-weight: bold;
         }
-        
+
         p {
             padding: 0 24px;
             margin: 18px 0;
@@ -391,7 +419,7 @@ span {
 #profileInfo{
     padding:10px;
     height:90px;
-    
+
     .floatingAvatar{
         width: 130px;
         height: 130px;
@@ -399,23 +427,23 @@ span {
         margin: 0px;
         border: 1px solid #dbdbdb;
     }
-    
+
     #follow_button{
         float:right;
         width:135px;
         margin: 25px 0;
         height:30px;
-        
+
         border-radius: 10px;
-        border: 1px solid 
+        border: 1px solid
             #dbdbdb;
         text-align:center;
         padding-top:10px;
-        
+
     }
-    
-    
-    
+
+
+
     .pDisplayname{
         font-size:35px;
         margin-left:10px;
@@ -425,24 +453,24 @@ span {
             text-decoration: underline;
         }
     }
-    
+
     .pWhizname{
         color:#dbdbdb;
         display:inline-block;
         font-size: 17px;
     }
-    
+
     .pInfoBlock{
         float:left;
         width:135px;
         text-align:center;
         padding-top:10px;
     }
-    
+
     span{
         color:@accent-color;
     }
-    
+
     .marginTop{
         margin-top:5px;
     }
@@ -500,7 +528,7 @@ span {
             font-size:10px;
             margin:0;
         }
-        
+
         div.topSpace{
             margin-top:5px
         }
@@ -621,16 +649,16 @@ span {
             div.text_spacing {
                 white-space: pre-wrap;
                 /* CSS3 */
-                
+
                 white-space: -moz-pre-wrap;
                 /* Firefox */
-                
+
                 white-space: -pre-wrap;
                 /* Opera <7 */
-                
+
                 white-space: -o-pre-wrap;
                 /* Opera 7 */
-                
+
                 word-wrap: break-word;
                 /* IE */
             }
@@ -703,7 +731,7 @@ span {
                 border-radius: 40px;
                 clip: rect(0px, 80px, 80px, 40px);
                 .semicircle {
-                   
+
                     background-color: #dbdbdb;
                     position: absolute;
                     width: 80px;
@@ -790,9 +818,9 @@ span {
 }
 
 #accountView{
-  
-    
-    
+
+
+
     .alignLeft{
     display:inline-block;
 
@@ -804,25 +832,25 @@ span {
         text-align: right;
         margin-right:10px;
     }
-    
+
     .usernameResult{
         display:inline-block;
-        
+
         .red{
             color:#C33;
             font-size: 10px;
         }
     }
-    
+
     .passResult{
         display:inline-block;
-        
+
         .red{
             color:#C33;
             font-size: 10px;
         }
     }
-    
+
 }
 
 .no_broadcasts{
@@ -845,7 +873,7 @@ a.dName {
         height:19px;
         background-color:white;
         border-radius: 10px;
-        border: 1px solid 
+        border: 1px solid
             #dbdbdb;
         text-align:center;
         padding-top:10px;
@@ -859,14 +887,14 @@ a.dName {
 
 .card_unfollow_button{
     float:right;
-        
+
         height:19px;
         background-color:@accent-color;
         border-radius: 10px;
         border: none;
         text-align:center;
         padding-top:10px;
-        color:white; 
+        color:white;
         &:hover{
             background: @active-accent-color;
             cursor: pointer;
@@ -875,7 +903,7 @@ a.dName {
 }
 
 m{
- margin-right:25px;   
+ margin-right:25px;
 }
 
 /* sample comment */

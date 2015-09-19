@@ -34,8 +34,9 @@
                     <?php
                     echo '<h2>Welcome ' . $cur_user->username . '!</h2>';
                     ?>
-                    <table border="1">
+                    <table>
                         <tr>
+                            <th>ID</th>
                             <th>Name</th>
                             <th>Description</th>
                             <th>Price</th>
@@ -43,9 +44,10 @@
                         </tr>
                     <?php foreach ($jobs as $job){ ?>
                             <tr>
+                                <td> <?php echo $job->job_id; ?> </td>
                                 <td> <?php echo $job->job_name; ?> </td>
                                 <td> <?php echo $job->job_description; ?> </td>
-                                <td> <?php echo '$' . $job->job_price; ?> </td>
+                                <td> <?php echo $job->job_price; ?> </td>
                                 <td> <?php echo ($job->job_latitude.",".$job->job_longitude); ?> </td> </tr>
                         <!--     echo "<tr>";
                             echo "<td> ($job->job_name) </td>";
@@ -89,11 +91,11 @@
                         //infoWindow.setPosition(pos);
                         //infoWindow.setContent('Location found.');
                         map.setCenter(pos);
+
                         var marker = new google.maps.Marker({
                             position: pos,
                             map: map,
-                            title: 'My Location',
-                            icon: 'resources/home.png'
+                            title: 'My Location'
                         });
 
                     }, function() {

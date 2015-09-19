@@ -1,51 +1,109 @@
-<h1>Login</h1>
-<form action="attemptLogin" method="post">
-    Username: <input type="text" name="username"><br>
-    Password: <input type="password" name="password"><br>
-    <input type="submit" value="Login">
-</form>
-<br>
-<h1>Register</h1>
-<form action="attemptRegistration" method="post">
-    Username: <input type="text" name="username"><br>
-    Password: <input type = "password" name = "password"><br>
-    Confirm Password: <input type = "password" name = "password2"><br>
-    Full Name: <input type="text" name="full_name"><br>
-    Email: <input type="text" name="email"><br>
-    <input type="submit" value="Register">
-</form>
-<br>
-<h1>Create Job</h1>
-<form action="postJob" method="post">
-    Job Name: <input type="text" name="job_name"><br>
-    Job Description: <input type="text" name="job_description"><br>
-    Price: <input type="text" name = "job_price"><br>
-    Address: <input type = "text" name = "address" value = "1 Abbey Rd, Welland, ON L3C 7L1"><br>
-    Email: <input type = "text" name = "email"> <br>
-    Card Number: <input data-braintree-name="number" value=""> <br>
-    Expiration Date: <input data-braintree-name="expiration_date" value=""> <br>
-    CVV: <input data-braintree-name="cvv" value=""> <br>
-    Billing Address Line 1: <input data-braintree-address1="address1" value=""> <br>
-    Billing Address Line 2: <input data-braintree-address2="address2" value=""> <br>
-    City: <input data-braintree-city="city" value=""> <br>
-    State/Province: <input data-braintree-pronvince="province" value=""> <br>
-    Country: <input data-braintree-country="country" value=""> <br>
-    Postal Code: <input data-braintree-name="postal_code" value=""> <br>
-    Cardholder Name: <input data-braintree-name="cardholder_name" value=""> <br>
-    <input type="submit" id="submit" value="Pay and Submit">
-</form>
+<div style="text-align:center">
+  <div id = "createButton" class = "dropdownButton"><h1>Create Job</h1></div>
+  <div id = "createForm" class = "dropdownBody" style = "display:none">
+    <form action="postJob" method="post">
+        <div class = "leftFields">
+          Job Name:<br>
+          Job Description:<br>
+          Price:<br>
+          Address:<br>
+          Email:<br>
+          Card Number:<br>
+          Expiration Date:<br>
+          CVV:<br>
+          Billing Address Line 1:<br>
+          Billing Address Line 2:<br>
+          City:<br>
+          State/Province:<br>
+          Country:<br>
+          Postal Code:<br>
+          Cardholder Name:<br>
+        </div>
+        <div class = "rightFields">
+           <input type="text" name="job_name"><br>
+           <input type="text" name="job_description"><br>
+           <input type="text" name = "job_price"><br>
+           <input type = "text" name = "address" value = "1 Abbey Rd, Welland, ON L3C 7L1"><br>
+           <input type = "text" name = "email"><br>
+           <input data-braintree-name="number" value=""><br>
+           <input data-braintree-name="expiration_date" value=""><br>
+           <input data-braintree-name="cvv" value=""><br>
+           <input data-braintree-address1="address1" value=""><br>
+           <input data-braintree-address2="address2" value=""><br>
+           <input data-braintree-city="city" value=""><br>
+           <input data-braintree-pronvince="province" value=""><br>
+           <input data-braintree-country="country" value=""><br>
+           <input data-braintree-name="postal_code" value=""><br>
+           <input data-braintree-name="cardholder_name" value=""><br>
+          </div>
 
-<h1>About</h1>
-<p>This is bullshit</p>
 
-<h1>FAQ</h1>
-<h2>What is this service?</h2>
-<p>Smoke weed everyday</p>
-<h2>What is this service?</h2>
-<p>Smoke weed everyday</p>
-<h2>What is this service?</h2>
-<p>Smoke weed everyday</p>
-<h2>What is this service?</h2>
-<p>Smoke weed everyday</p>
-<?php
-?>
+         <input type="submit" id="submit" value="Pay and Submit">
+    </form>
+  </div>
+  <div id = "loginButton" class = "dropdownButton"><h1>Login</h1></div>
+  <div id = "loginForm" style = "display:none">
+    <form action="attemptLogin" method="post">
+        <table align = "center">
+          <tr> <td style="float:right"> Username: </td> <td> <input type="text" name="username"> </td> </tr>
+          <tr> <td style="float:right"> Password: </td> <td> <input type="password" name="password"> </td> </tr>
+        </table>
+        <input type="submit" value="Login">
+    </form>
+  </div>
+  <div id = "registerButton" class = "dropdownButton"><h1>Register</h1></div>
+  <div id = "registerForm" style = "display:none">
+    <form action="attemptRegistration" method="post">
+        <table align = "center">
+          <tr> <td style="float:right">Username:</td> <td> <input type="text" name="username"> </td></tr>
+          <tr> <td style="float:right">Password: </td> <td> <input type = "password" name = "password"> </td> </tr>
+          <tr> <td style="float:right">Confirm Password: </td> <td> <input type = "password" name = "password2"></td> </tr>
+          <tr> <td style="float:right">Full Name: </td><td> <input type="text" name="full_name"></td> </tr>
+          <tr> <td style="float:right">Email: </td><td> <input type="text" name="email"></td> </tr>
+        </table>
+        <input type="submit" value="Register">
+    </form>
+  </div>
+  <br>
+
+
+  <h1>About</h1>
+  <p>This is bullshit</p>
+
+  <h1>FAQ</h1>
+  <h2>What is this service?</h2>
+  <p>Smoke weed everyday</p>
+  <h2>What is this service?</h2>
+  <p>Smoke weed everyday</p>
+  <h2>What is this service?</h2>
+  <p>Smoke weed everyday</p>
+  <h2>What is this service?</h2>
+  <p>Smoke weed everyday</p>
+</div>
+<script>
+$("#createButton").click(function () {
+  if ($("#createForm").is(':hidden')) {
+    $( "#createForm" ).slideDown( "slow" );
+  } else {
+    $("#createForm").slideUp("slow");
+  }
+});
+</script>
+<script>
+$("#loginButton").click(function () {
+  if ($("#loginForm").is(':hidden')) {
+    $( "#loginForm" ).slideDown( "slow" );
+  } else {
+    $("#loginForm").slideUp("slow");
+  }
+});
+</script>
+<script>
+$("#registerButton").click(function () {
+  if ($("#registerForm").is(':hidden')) {
+    $( "#registerForm" ).slideDown( "slow" );
+  } else {
+    $("#registerForm").slideUp("slow");
+  }
+});
+</script>

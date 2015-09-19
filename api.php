@@ -22,7 +22,6 @@ class Api
             "checkEmail",
              "postJob",
              "fetchJobs",
-             "fetchIndividualJob",
              
              //GETS
             "getWhizData"
@@ -264,11 +263,6 @@ class Api
         $user = $this->model->userForAuthHash($_GET["auth_hash"]);
         $resp = $this->model->APIfetchJobs($user->whiz_id);
         echo json_encode($resp);
-    }
-    
-    private function fetchIndividualJob()
-    {
-        echo json_encode($this->model->APIfetchIndividualJob($_GET["job_id"]));
     }
 }
 

@@ -677,19 +677,4 @@ class Model
         }
         return $jobs;
     }
-    
-    public function APIfetchIndividualJob($job_id){
-        return $this->objectSelect("Job", array("job_name", 
-                                                       "job_id",
-                                                       "job_description", 
-                                                       "job_address",
-                                                       "job_latitude","
-                                                       job_longitude", 
-                                                       "job_price", 
-                                                       "job_completed", 
-                                                       "created_at", 
-                                                       "job_hash", 
-                                                       "buyer_id"), array(
-            "job_id" => $job_id), array(PDO::PARAM_INT));  
-    }
 }
