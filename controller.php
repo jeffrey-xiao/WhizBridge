@@ -15,13 +15,13 @@ class Controller
         $this->functions = array(
             "login" => "loginPage",
             "home" => "homePage",
-            
+
             "attemptRegistration" => "attemptRegistration",
             "attemptLogin" => "attemptLogin",
             "logout" => "logout",
-            
+
         );
-        date_default_timezone_set("UTC");  
+        date_default_timezone_set("UTC");
         if (strlen($_GET['function']) > 0) {
             $functionParams = explode("/", (isset($_GET['function']) ? $_GET['function'] : null));
         } else {
@@ -79,14 +79,14 @@ class Controller
         }
     }
     //Other Helpful Functions
-    private function hasInvalidChars($str) 
+    private function hasInvalidChars($str)
     {
         return preg_match('/[^A-Za-z0-9]/', $str);
     }
     //*******************************************************
     //PAGES
     //*******************************************************
-    
+
     //Login Page
     private function loginPage() //params is an array of errors
     {
@@ -103,20 +103,20 @@ class Controller
     }
     //Home page
     private function homePage()//params are typically empty
-    { 
+    {
         $cur_user = $this->checkAuth();
         if ($cur_user === false) { //Load login with error
             $this->loadPage("login", null);
         } else { //load home page
-            $cur_user    = $this->model->getWhizData($cur_user->user_id, $cur_user->user_id);
+            $cur_user    = $this->model->getWhizData($cur_user->whiz_id);
             $this->loadPage("home", array(
                 "cur_user" => $cur_user,
             ), null);
         }
     }
-    
-   
-    
+
+
+
     private function settingsPage()
     {
         $cur_user = $this->checkAuth();
@@ -129,11 +129,11 @@ class Controller
             ), null);
         }
     }
-   
-    
-    
-    
-    
+
+
+
+
+
 
     private function loadHome()
     {
@@ -144,16 +144,16 @@ class Controller
             //Add code here
         }
     }
-    
-    
-    
+
+
+
     private function checkWhizname()
     {
         $uname = $_GET["username"];
         //bool user exists
         $response = $userExists = $this->model->usernameExists($uname);
         $userInvalidChars = $this->hasInvalidChars($uname);
-        
+
         if(!$userExists && !$userInvalidChars ){
             echo 1;
         } else if(($userInvalidChars)){
@@ -162,24 +162,30 @@ class Controller
             echo -4;
         }
     }
-    
-  
-    
+
+
+
     private function attemptRegistration()
     {
-        
-        if (array_key_exists($_POST['username'], $this->functions)) {
-            $this->redirect("login/9");
-        } else if ($_POST['email'] == "" || strpos($_POST['email'], "@") === false || strpos($_POST['email'], "+") === true) {
-            $this->redirect("login/5");
-        } else if ($_POST['username'] == "") {
-            $this->redirect("login/6");
-        } else if ($this->hasInvalidChars($_POST['username'])) {
-            $this->redirect("login/8");
-        }else if (strlen($_POST['password']) < 6) {
-            $this->redirect("login/4");
-        } else if ($_POST['password'] != $_POST['password2']) {
-            $this->redirect("login/3");
+        if(!true){
+        // if (array_key_exists($_POST['username'], $this->functions)) {
+        //     $this->redirect("login/9");
+        // } else if ($_POST['email'] == "" || strpos($_POST['email'], "@") === false || strpos($_POST['email'], "+") === true) {
+
+
+        //     $this->redirect("login/5");
+        // } else if ($_POST['username'] == "") {
+
+        //     $this->redirect("login/6");
+        // } else if ($this->hasInvalidChars($_POST['username'])) {
+
+        //     $this->redirect("login/8");
+        // }else if (strlen($_POST['password']) < 6) {
+
+        //     $this->redirect("login/4");
+        // } else if ($_POST['password'] != $_POST['password2']) {
+
+        //     $this->redirect("login/3");
         } else {
             $curSalt = chr( mt_rand( 97 ,122 ) ) .substr( md5( time( ) ) ,1 );
             $pass       = hash('sha256', $curSalt.$_POST['password']);
@@ -187,26 +193,29 @@ class Controller
                 'username' => $_POST['username'],
                 'email' => $_POST['email'],
                 'password' => $pass,
-                'display_name' => $_POST['display_name'],
+                'full_name' => $_POST['full_name'],
                 'salt' => $curSalt
             );
             $resp       = $this->model->registerWhiz($signupInfo, true);
 
             if ($resp !== false) {
-                $this->redirect("");
+                echo "success";
+                //$this->redirect("");
             } else {
-                $this->redirect("login/" . $resp);
+                echo "faiulure";
+                // $this->redirect("login/" . $resp);
             }
         }
     }
-    
+
     //add later: on redirect, append page user was currently on when logged in to empty string******************************
     private function attemptLogin()
     {
-        $salt = $this->model->getWhizSaltForWhizname($_POST['username']);
+        $salt = $this->model->getSaltForUsername($_POST['username']);
+        $whiz_id = $this->model->getWhizIdForUsername($_POST['username']);
         $pass      = hash('sha256', $salt.$_POST['password']);
         $loginInfo = array(
-            'username' => $_POST['username'],
+            'whiz_id' => $whiz_id,
             'password' => $pass
         );
         if ($this->model->attemptLogin($loginInfo, true)) {
@@ -220,11 +229,11 @@ class Controller
         $this->model->logoutWhiz($_COOKIE['Auth'], true);
         $this->redirect("");
     }
-    
-       
-    
-    
-   
+
+
+
+
+
 }
 
 $controller = new Controller();
