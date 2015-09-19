@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
 <div id="map" style="height:400px; width:500px;"></div>
         <div id="content">
             <div class="wrapper">
