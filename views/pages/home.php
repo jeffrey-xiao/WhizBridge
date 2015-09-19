@@ -21,6 +21,12 @@
                    <?php  echo $cur_user->username; ?>
                 </div>
 
+                <input type="submit" action="logout" name="Logout" />
+
+
                 <div class="panel center" id="broadcast_panel">
                     <!--Add broadcasts here-->
                 </div>
+            </div>
+        </div>
+</body>

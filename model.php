@@ -528,5 +528,27 @@ class Model
         return ($sth->rowCount() > 0) ? true : false;
     }
 
+    // NEW FUNCTION
+    public function fetchJobs($whiz_id)
+    {
+        $query = "SELECT * FROM Job ORDER BY created_at DESC LIMIT 50; ";
+        try {
+            $sth = $this->dbh->prepare($query);
+            $sth->bindParam(':whiz_id', $whiz_id, PDO::PARAM_INT);
+            $sth->execute();
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        $jobs = array();
+        while ($row = $sth->fetch(PDO::FETCH_OBJ)) {
+            array_push($jobs, $row);
+        }
+        return $jobs;
+    }
+
+    public function createJob($name, $descr, $price){
+        $this->insert("Job", array("job_name"=> $name, "job_description"=> $descr, "job_price"=>$price));
+    }
 
 }

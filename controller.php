@@ -19,6 +19,8 @@ class Controller
             "attemptRegistration" => "attemptRegistration",
             "attemptLogin" => "attemptLogin",
             "logout" => "logout",
+            "postJob" => "postJob"
+
 
         );
         date_default_timezone_set("UTC");
@@ -110,7 +112,7 @@ class Controller
         } else { //load home page
             $cur_user    = $this->model->getWhizData($cur_user->whiz_id);
             $this->loadPage("home", array(
-                "cur_user" => $cur_user,
+                "cur_user" => $cur_user
             ), null);
         }
     }
@@ -145,7 +147,12 @@ class Controller
         }
     }
 
+    private function postJob(){
+        //todo with ${POST}
+        $this->model->createJob($_POST["job_name"], $_POST["job_description"], $_POST["job_price"]);
+        $this->loadPage("jobSuccess", array(), null);
 
+    }
 
     private function checkWhizname()
     {
@@ -202,7 +209,7 @@ class Controller
                 echo "success";
                 //$this->redirect("");
             } else {
-                echo "faiulure";
+                echo "failure";
                 // $this->redirect("login/" . $resp);
             }
         }
