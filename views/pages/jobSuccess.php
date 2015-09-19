@@ -1,4 +1,3 @@
-<?php
-echo "Job successfully posted!"; ?>
+<h2>Job successfully created, payment has been authorized.</h2>
 <br>
-<a href="/" > back to home </a>
+<p><a href="/">Back to Home</a></p>
