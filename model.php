@@ -629,8 +629,6 @@ class Model
     public function deleteJob ($job_id) {
         return $this->delete("Job", array("job_id" => $job_id));
     }
-<<<<<<< Updated upstream
-=======
     public function checkRsvp ($job_id) {
         $query = "SELECT * FROM JobJoin WHERE job_id = ".$job_id."";
         try {
@@ -674,5 +672,4 @@ class Model
         }
         return $jobs;
     }
->>>>>>> Stashed changes
 }
