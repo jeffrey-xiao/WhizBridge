@@ -567,7 +567,7 @@ class Model
         mail("jeffrey.xiao1998@gmail.com","Job Created!",$msg);
     }
     public function takeJob ($job_id, $whiz_id) {
-        $this->insert("JobJoin", array("job_id"=>job_id, "whiz_id" => whiz_id));
+        return $this->insert("JobJoin", array("job_id"=>$job_id, "whiz_id" => $whiz_id));
     }
 
     public function checkIfJobHashExists($hash){
@@ -592,5 +592,18 @@ class Model
     }
     public function deleteJob ($job_id) {
         return $this->delete("Job", array("job_id" => $job_id));
+    }
+    public function checkRsvp ($job_id) {
+        $query = "SELECT * FROM JobJoin WHERE job_id = ".$job_id."";
+        try {
+            $sth = $this->dbh->prepare($query);
+            //$sth->bindParam(":text", strip_tags(htmlentities($text)));
+            $sth->bindParam(":job_id", $job_id , PDO::PARAM_INT );
+            $sth->execute();
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        return ($sth->rowCount() > 0) ? true : false;
     }
 }

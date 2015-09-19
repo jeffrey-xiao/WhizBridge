@@ -130,11 +130,15 @@
                 var bounds = new google.maps.LatLngBounds();
 
                 for(i = 0; i < locations.length; i++) {
-                    markers.push(new google.maps.Marker({
-                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                        map: map,
-                        title: locations[i][0]
-                    }));
+                    var isRsvp = checkRsvp(locations[i][4]);
+                    console.log(isRsvp);
+                    //if (isRsvp == 'false') {
+                        markers.push(new google.maps.Marker({
+                            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                            map: map,
+                            title: locations[i][0]
+                        }));
+                    //}
                     /*google.maps.event.addListener(marker, 'click', (function(marker, i) {
                         return function() {
                             infowindow.setContent(locations[i][0]);
@@ -152,18 +156,19 @@
                         content: locations[i][0],
                         position: new google.maps.LatLng(locations[i][1], locations[i][2])
                     });
-                    console.log(i);
                     (function(){
                         var name = locations[i][0];
                         var desc = locations[i][3];
                         var jid = locations[i][4];
+                        var price = locations[i][5];
                         var m = markers[i];
                         google.maps.event.addListener(m, 'click', function() {
                             map.setZoom(12);
                             map.setCenter(m.getPosition());
                             infowindow.setContent('<p> Name: ' + name + '</p>'+
                                 '<p> Desc: ' + desc + '</p>' +
-                                    '<form action="takeJob" method="post"><input type="Submit" value="Take Job!"></form>'
+                                '<p> Price: ' + price + '</p>' +
+                                '<button onclick=takeJob('+jid+')>Take Job!</button>'
                                 );
 
                             // TODO!!!!! MAKE THIS ONCLICK
@@ -177,9 +182,34 @@
 
                 map.fitBounds(bounds);
             }
+            function checkRsvp (job_id) {
+                $.ajax({
+                    type: "POST",
+                    url: '/checkRsvp',
+                    data: {job_id},
+                    cache: false,
 
+                    success: function (html) {
+                        return html;
+                    }
+                });
+            }
+            function takeJob(job_id){
+                $.ajax({
+                    type: "POST",
+                    url: '/takeJob',
+                    data: {job_id},
+                    cache: false,
 
-
+                    success: function (html) {
+                        if( html == "true" ){
+                            //shit was a succcess
+                        } else {
+                            //catch error here
+                        }
+                    }
+                });
+            }
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH5DWHzRW5NK60dvJt3ak-pdCgs3zsdec&signed_in=true&callback=initMap"
                 async defer>
