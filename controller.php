@@ -138,7 +138,8 @@ class Controller
 
             $this->loadPage("home", array(
                 "jobs" => $jobs,
-                "cur_user" => $cur_user
+                "cur_user" => $cur_user,
+                "big_arr" => $big_arr
             ), null);
         }
     }

@@ -124,23 +124,44 @@
             }
 
             function loadMarkers(locations) {
-                var marker, i, infowindow;
+                var i;
+                var markers = [];
+                var infowindows = [];
                 var bounds = new google.maps.LatLngBounds();
 
                 for(i = 0; i < locations.length; i++) {
-                    marker = new google.maps.Marker({
+                    markers.push(new google.maps.Marker({
                         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
                         map: map,
                         title: locations[i][0]
-                    })
-                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    }));
+                    /*google.maps.event.addListener(marker, 'click', (function(marker, i) {
                         return function() {
                             infowindow.setContent(locations[i][0]);
                             infowindow.open(map, marker);
                         }
 
                     })(marker, i));
-                    bounds.extend(marker.getPosition());
+                    infowindows.push(new google.maps.InfoWindow({
+                    content: locations[i][0]
+                    }));
+                    markers[i].addListener('click', function() {
+                    infowindows[i].open(map, markers[i]);
+                    });*/
+                    var infowindow = new google.maps.InfoWindow({
+                        content: locations[i][0],
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2])
+                    });
+                    console.log(i);
+                    (function(){
+                        var k = locations[i][0];
+                        google.maps.event.addListener(markers[i], 'click', function() {
+                            infowindow.setContent(k);
+                            infowindow.open(map, this);
+                        });
+                    }()) // closure inclusion
+                    //console.log('info windows yo' + i);
+                    bounds.extend(markers[i].getPosition());
                 }
 
                 map.fitBounds(bounds);
