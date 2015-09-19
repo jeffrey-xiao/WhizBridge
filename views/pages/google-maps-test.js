@@ -1,8 +1,8 @@
 var map;
 var locations = [
-    ["Job 1", 1, 2],
-    ["Job 2", 2, 3],
-    ["Job 3", 3, 4]
+    ["Rares Bostan: Wifi", 42, -78],
+    ["Neerajen Sritharan: Virus", 40, -76],
+    ["Jeffrey Xiao: Fire", 44, -80]
 ];
 
 function initMap() {

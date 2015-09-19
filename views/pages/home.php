@@ -27,13 +27,17 @@
 
         <div id="content">
 
-            <div class="wrapper"><div id="map" style="width:500px; height:500px"></div>
+            <div class="wrapper">
+                <div id="map" style="width:500px; height:500px"></div>
                 <div class="panel left" style="position:fixed;">
                    Welcome
-                   <?php  echo $cur_user->username; ?>
+                   <?php  echo $cur_user->username . '<br>';
+                        echo 'Available jobs:';
+                    ?>
                 </div>
 
 
+                <br>
                 <br>
                 <form action = "logout">
                     <input type="submit" value="Logout" />
@@ -70,7 +74,7 @@
             </div>
         </div>
 
-        <script src="google-maps-test.js"></script>
+        <script src="maps.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH5DWHzRW5NK60dvJt3ak-pdCgs3zsdec&signed_in=true&callback=initMap"
                 async defer>
         </script>

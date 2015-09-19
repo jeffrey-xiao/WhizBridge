@@ -1,8 +1,8 @@
 var map;
 var locations = [
-    ["Job 1", 1, 2],
-    ["Job 2", 2, 3],
-    ["Job 3", 3, 4]
+    ["Rares Bostan: Wifi", 43.2, -80.3],
+    ["Neerajen Sritharan: Virus", 43.3, -80.4],
+    ["Jeffrey Xiao: Fire", 43.6, -80.5]
 ];
 
 function initMap() {
@@ -51,21 +51,24 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function loadMarkers(locations) {
-    var marker, i;
+    var marker, i, infowindow;
+    var bounds = new google.maps.LatLngBounds();
 
     for(i = 0; i < locations.length; i++) {
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-            map: map
+            map: map,
+            title: locations[i][0]
         })
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
-                infowindow.setContent(locations[i][0]);
-                infowindow.open(map, marker);
+                //infowindow.setContent(locations[i][0]);
+                //infowindow.open(map, marker);
             }
 
         })(marker, i));
+        bounds.extend(marker.getPosition());
     }
 
-
+    map.fitBounds(bounds);
 }
