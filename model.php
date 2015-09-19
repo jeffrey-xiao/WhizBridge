@@ -532,7 +532,7 @@ class Model
     // NEW FUNCTION
     public function fetchJobs($whiz_id)
     {
-        $query = "SELECT * FROM Job ORDER BY created_at DESC LIMIT 50; ";
+        $query = "SELECT * FROM whizbridge_db.Job WHERE job_completed IS NULL AND job_id NOT IN (select job_id from JobJoin) ORDER BY created_at DESC LIMIT 50; ";
         try {
             $sth = $this->dbh->prepare($query);
             $sth->bindParam(':whiz_id', $whiz_id, PDO::PARAM_INT);
@@ -549,7 +549,48 @@ class Model
     }
 
     public function createJob($name, $descr, $price, $lat, $long){
-        $this->insert("Job", array("job_name"=> $name, "job_description"=> $descr, "job_price"=>$price, "job_latitiude" => $lat, "job_longitude" => $long));
+        $info = array("job_name"=> $name,
+            "job_description"=> $descr,
+             "job_price"=>$price,
+             "job_latitiude" => $lat,
+              "job_longitude" => $long,
+              "created_at" => date('Y-m-d H:i:s'),
+              "job_hash" => md5($name .date('Y-m-d H:i:s') ) );
+        $this->insert("Job", $info);
+
+        // $job_id = $this->objectSelect("Job", array("job_id"), $info, array(PDO::PARAM_STR, PDO::PARAM_STR, PDO::PARAM_STR, PDO::PARAM_STR, PDO::PARAM_STR, PDO::PARAM_STR));
+
+        // the message
+        $msg = md5($info["job_name"].$info["created_at"]);
+        echo $msg;
+        // send email
+        mail("jeffrey.xiao1998@gmail.com","Job Created!",$msg);
+    }
+    public function takeJob ($job_id, $whiz_id) {
+        $this->insert("JobJoin", array("job_id"=>job_id, "whiz_id" => whiz_id));
     }
 
+    public function checkIfJobHashExists($hash){
+        $a =  $this->objectSelect("Job", array("job_id", "job_name", "job_description", "job_price"), array(
+            "job_hash" => $hash), array(PDO::PARAM_STR));
+        return $a;
+    }
+
+    public function updateJobComplete($job_id){
+        $query = "UPDATE Job SET job_completed=1 WHERE job_id=:job_id ";
+
+        try {
+            $sth = $this->dbh->prepare($query);
+            //$sth->bindParam(":text", strip_tags(htmlentities($text)));
+            $sth->bindParam(":job_id", $job_id , PDO::PARAM_INT );
+            $sth->execute();
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        return ($sth->rowCount() > 0) ? true : false;
+    }
+    public function deleteJob ($job_id) {
+        return $this->delete("Job", array("job_id" => $job_id));
+    }
 }

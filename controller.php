@@ -19,10 +19,10 @@ class Controller
             "attemptRegistration" => "attemptRegistration",
             "attemptLogin" => "attemptLogin",
             "logout" => "logout",
-            "postJob" => "postJob"
-
-
-
+            "postJob" => "postJob",
+            "takeJob" => "takeJob",
+            "completeJob" => "completeJob",
+            "cancelJob" => "cancelJob"
         );
         date_default_timezone_set("UTC");
         if (strlen($_GET['function']) > 0) {
@@ -78,7 +78,7 @@ class Controller
             $toPage =  $this->functions[$endpoint];
             $this->$toPage();
         } else {
-            $this->profilePage($endpoint);
+            $this->jobPage($endpoint);
         }
     }
     //Other Helpful Functions
@@ -90,6 +90,15 @@ class Controller
     //PAGES
     //*******************************************************
 
+
+    private function jobPage($hash){
+        $job = $this->model->checkIfJobHashExists($hash);
+        if($job !== false){
+            $this->loadPage("job", array("job" => $job));
+        } else {
+            $this->loadPage("404", null);
+        }
+    }
     //Login Page
     private function loginPage() //params is an array of errors
     {
@@ -221,10 +230,18 @@ class Controller
             );
             $resp       = $this->model->registerWhiz($signupInfo, true);
             if ($resp !== false) {
-                echo "success";
+                echo "Success";
+                ?>
+                <br>
+                <a href = "/">Return to Home </a>
+                <?php
                 //$this->redirect("");
             } else {
-                echo "failure";
+                echo "Failure";
+                ?>
+                <br>
+                <a href = "/">Try Again </a>
+                <?php
                 // $this->redirect("login/" . $resp);
             }
         }
@@ -242,6 +259,8 @@ class Controller
         );
         if ($this->model->attemptLogin($loginInfo, true)) {
             $this->redirect("");
+
+
         } else {
             $this->redirect("login?error=-123");
         }
@@ -252,11 +271,17 @@ class Controller
         $this->model->logoutWhiz($_COOKIE['Auth'], true);
         $this->redirect("");
     }
-
-
-
-
-
+    private function takeJob () {
+        $this->model->takeJob($_POST['job_id'], $cur_id->whiz_id);
+    }
+    private function completeJob () {
+        $job_id = $_POST["job_id"];
+        echo $this->model->updateJobComplete($job_id);
+    }
+    private function cancelJob () {
+        $job_id = $_POST["job_id"];
+        echo $this->model->deleteJob($job_id);
+    }
 }
 
 $controller = new Controller();
