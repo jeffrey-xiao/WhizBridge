@@ -548,8 +548,8 @@ class Model
         return $jobs;
     }
 
-    public function createJob($name, $descr, $price){
-        $this->insert("Job", array("job_name"=> $name, "job_description"=> $descr, "job_price"=>$price));
+    public function createJob($name, $descr, $price, $lat, $long){
+        $this->insert("Job", array("job_name"=> $name, "job_description"=> $descr, "job_price"=>$price, "job_latitiude" => $lat, "job_longitude" => $long));
     }
 
 }
