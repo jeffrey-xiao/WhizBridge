@@ -21,7 +21,19 @@ Job Description: <input type="text" name="job_description"><br>
 Price: <input type="text" name = "job_price"><br>
 Address: <input type = "text" name = "address" value = "1 Abbey Rd, Welland, ON L3C 7L1"><br>
 Email: <input type = "text" name = "email"> <br>
+
 <input type="submit">
+    Card Number: <input data-braintree-name="number" value=""> <br>
+    Expiration Date: <input data-braintree-name="expiration_date" value=""> <br>
+    CVV: <input data-braintree-name="cvv" value=""> <br>
+    Billing Address Line 1: <input data-braintree-address1="address1" value=""> <br>
+    Billing Address Line 2: <input data-braintree-address2="address2" value=""> <br>
+    City: <input data-braintree-city="city" value=""> <br>
+    State/Province: <input data-braintree-pronvince="province" value=""> <br>
+    Country: <input data-braintree-country="country" value=""> <br>
+    Postal Code: <input data-braintree-name="postal_code" value=""> <br>
+    Cardholder Name: <input data-braintree-name="cardholder_name" value=""> <br>
+    <input type="submit" id="submit" value="Pay and Submit">
 </form>
 <?php
 
