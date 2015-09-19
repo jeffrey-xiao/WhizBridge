@@ -130,15 +130,11 @@
                 var bounds = new google.maps.LatLngBounds();
 
                 for(i = 0; i < locations.length; i++) {
-                    var isRsvp = checkRsvp(locations[i][4]);
-                    console.log(isRsvp);
-                    //if (isRsvp == 'false') {
-                        markers.push(new google.maps.Marker({
-                            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                            map: map,
-                            title: locations[i][0]
-                        }));
-                    //}
+                    markers.push(new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        map: map,
+                        title: locations[i][0]
+                    }));
                     /*google.maps.event.addListener(marker, 'click', (function(marker, i) {
                         return function() {
                             infowindow.setContent(locations[i][0]);
@@ -181,18 +177,6 @@
                 }
 
                 map.fitBounds(bounds);
-            }
-            function checkRsvp (job_id) {
-                $.ajax({
-                    type: "POST",
-                    url: '/checkRsvp',
-                    data: {job_id},
-                    cache: false,
-
-                    success: function (html) {
-                        return html;
-                    }
-                });
             }
             function takeJob(job_id){
                 $.ajax({

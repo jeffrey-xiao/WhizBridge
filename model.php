@@ -532,7 +532,7 @@ class Model
     // NEW FUNCTION
     public function fetchJobs($whiz_id)
     {
-        $query = "SELECT * FROM whizbridge_db.Job WHERE job_completed IS NULL AND job_id NOT IN (select job_id from JobJoin) ORDER BY created_at DESC LIMIT 50; ";
+        $query = "SELECT * FROM whizbridge_db.Job WHERE job_completed IS NULL AND job_id NOT IN (select job_id from JobJoin WHERE whiz_id <> ".$whiz_id.") ORDER BY created_at DESC LIMIT 50; ";
         try {
             $sth = $this->dbh->prepare($query);
             $sth->bindParam(':whiz_id', $whiz_id, PDO::PARAM_INT);
@@ -592,18 +592,5 @@ class Model
     }
     public function deleteJob ($job_id) {
         return $this->delete("Job", array("job_id" => $job_id));
-    }
-    public function checkRsvp ($job_id) {
-        $query = "SELECT * FROM JobJoin WHERE job_id = ".$job_id."";
-        try {
-            $sth = $this->dbh->prepare($query);
-            //$sth->bindParam(":text", strip_tags(htmlentities($text)));
-            $sth->bindParam(":job_id", $job_id , PDO::PARAM_INT );
-            $sth->execute();
-        }
-        catch (PDOException $e) {
-            echo $e->getMessage();
-        }
-        return ($sth->rowCount() > 0) ? true : false;
     }
 }

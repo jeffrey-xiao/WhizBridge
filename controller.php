@@ -25,8 +25,6 @@ class Controller
             "completeJob" => "completeJob",
             "cancelJob" => "cancelJob",
             "postJob" => "postJob",
-
-            "checkRsvp" => "checkRsvp",
             "sendSMS" => "sendSMS"
         );
         date_default_timezone_set("UTC");
@@ -295,13 +293,6 @@ class Controller
         $cur_user = $this->checkAuth();
         // $a = $this->model->takeJob($_POST['job_id'], 47);
         $a = $this->model->takeJob($_POST['job_id'], $cur_user->whiz_id);
-        echo json_encode($a);
-    }
-
-    private function checkRsvp () {
-        $cur_user = $this->checkAuth();
-        // $a = $this->model->checkRsvp($_POST['job_id'], 47);
-        $a = $this->model->checkRsvp($_POST['job_id'], $cur_user->whiz_id);
         echo json_encode($a);
     }
 
