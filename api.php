@@ -265,7 +265,7 @@ class Api
             $a->status = 1;
             $resp = $this->model->APIfetchJobs($user->whiz_id);
             $a->jobs = $resp;
-        echo json_encode($a);
+            echo json_encode($a);
         }
     }
 }
