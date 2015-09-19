@@ -25,20 +25,20 @@ class Model
         $response = $this->getWhizIdForUsername("username");
         var_dump($response);
     }
-    
-    
-    
-    
-    
+
+
+
+
+
     //***********************************************************************
     //STANDARD FUNCTIONS
     //***********************************************************************
     /* Select, Exists, Update, Insert, Delete */
-    
-    
-    
-    
-    
+
+
+
+
+
     //private function for performing standard SELECTs
     private function select($table, $arr)
     {
@@ -173,31 +173,31 @@ class Model
         }
         return ($sth->rowCount() > 0) ? true : false;
     }
-    
+
     //TEMPLATE
-    //public function 
-    //takes:    
-    //returns:  
-    //use case: 
-    
-    
-    
-    
-    
-    
+    //public function
+    //takes:
+    //returns:
+    //use case:
+
+
+
+
+
+
     //***********************************************************************
     //USER FUNCTIONS
     //***********************************************************************
     /* Authentication, Login, Logout, Registration, Whiz Data Fetching,
     Credential Changes, "Exists" Checks, Signups, Referrals */
-    
-    
-    
-    
-    
+
+
+
+
+
     //public function for condensed user retrieval
     //takes:    auth_hash
-    //returns:  condensed user object {user_id, username, display_name, avatar_hash} 
+    //returns:  condensed user object {user_id, username, display_name, avatar_hash}
     //          OR false if user not found based on auth_hash
     //use case: for authentication each time controller is accessed
     public function userForAuthHash($auth_hash)
@@ -209,12 +209,12 @@ class Model
                             ,avatar_hash
                         FROM Whiz
                         INNER JOIN (
-                            SELECT user_id
+                            SELECT whiz_id
                             FROM Auth
                             WHERE auth_hash = :auth_hash LIMIT 1
                             ) AS AuthJoin
                         WHERE Whiz.whiz_id = AuthJoin.whiz_id LIMIT 1 ";
-            
+
             $sth = $this->dbh->prepare($query);
             $sth->bindValue(':auth_hash', $auth_hash, PDO::PARAM_STR);
             $sth->execute();
@@ -236,8 +236,8 @@ class Model
     public function updateAuth($auth_hash)
     {
         return $this->objectUpdate("Auth", array("created_at" => date('Y-m-d H:i:s')),
-                                    array("auth_hash" => $auth_hash), 
-                                    array(PDO::PARAM_STR), 
+                                    array("auth_hash" => $auth_hash),
+                                    array(PDO::PARAM_STR),
                                     array(PDO::PARAM_STR));
     }
     //public function checks if user exists
@@ -259,7 +259,7 @@ class Model
     public function authorizeWhiz($user, $setCookie)
     {
         $chars = "qazwsxedcrfvtgbyhnujmik,ol.p;/1234567890QAZWSXEDCRFVTGBYHNUJMIKOLP";
-        $auth_hash  = sha1($this->getWhiznameForWhizId($user['user_id']));
+        $auth_hash  = sha1($this->getUsernameForWhizId($user['whiz_id']));
         for ($i = 0; $i < 12; $i++) {
             $auth_hash .= $chars[rand(0, 64)];
         }
@@ -276,10 +276,10 @@ class Model
             }
             if($response)
                 return $auth_hash;
-            else 
+            else
                 return false;
         } else {
-            return false;   
+            return false;
         }
     }
     //public function gets salt for username
@@ -290,6 +290,13 @@ class Model
     {
         $response = $this->objectSelect("Whiz", array("salt"), array(
             "whiz_id" => $user_id), array(PDO::PARAM_INT));
+        return ($response !== false ? $response->salt : false );
+    }
+
+     public function getSaltForUsername($username)
+    {
+        $response = $this->objectSelect("Whiz", array("salt"), array(
+            "username" => $username), array(PDO::PARAM_STR));
         return ($response !== false ? $response->salt : false );
     }
     //public function gets user id for username
@@ -316,7 +323,7 @@ class Model
     //takes:    user_id
     //returns:  username
     //use case: anywhere
-    public function getWhiznameForWhizId($user_id)
+    public function getUsernameForWhizId($user_id)
     {
         $response = $this->objectSelect("Whiz", array("username"), array(
             "user_id" => $user_id), array(PDO::PARAM_STR));
@@ -373,55 +380,26 @@ class Model
     //takes:     OPTIONAL: target_user_id, target_user_username, cur_user_id (one of id or username must be available)
     //returns:  full user object {user_id, username, display_name, amp, created_at, avatar_hash, followers, following,  OPTIONAL: did_follow}
     //use case: anywhere
-    
+
     //FUCKING EDIT THIS
-    public function getWhizData( $cur_user_id = null, $target_user_id =  null, $target_user_username = null)
+    public function getWhizData( $target_user_id = null,  $target_user_username = null)
     {
         if($target_user_username !== null ){
             $target_user_id = $this->getWhizIdForWhizname($target_user_username);
         }
-        $query = "SELECT Whiz.user_id
+        $query = "SELECT Whiz.whiz_id
                         ,username
-                        ,display_name
-                        ,amp
+                        ,full_name
+
                         ,created_at
                         ,avatar_hash
-                        ,followers
-                        ,following
-                        ,did_follow
-                        ,follows_you
                     FROM Whiz
-                    INNER JOIN (
-                        SELECT COUNT(*) AS followers
-                        FROM Follow
-                        WHERE followed_user_id = :target_user_id
-                        ) AS FOLLOWERS
-                    INNER JOIN (
-                        SELECT COUNT(*) AS following
-                        FROM Follow
-                        WHERE user_id = :target_user_id
-                        ) AS FOLLOWING
-                    INNER JOIN ";
-        if($cur_user_id === null){
-            $query .= "(SELECT NULL AS did_follow) AS DIDFOLLOW 
-                        INNER JOIN (SELECT NULL AS follows_you) AS FOLLOWSYOU ";
-        } else {
-            $query .= "(SELECT COUNT(*) AS did_follow FROM Follow 
-                            WHERE followed_user_id = :target_user_id 
-                            AND user_id= :cur_user_id ) AS DIDFOLLOW 
-                    LEFT JOIN (
-                    SELECT 1 AS follows_you
-                        , Follow.user_id 
-                        FROM Follow 
-                        WHERE Follow.followed_user_id = :cur_user_id
-                        ) AS F3 ON F3.user_id = :target_user_id ";
-        }
-        $query .= " WHERE Whiz.user_id = :target_user_id LIMIT 1;";
+                    WHERE Whiz.whiz_id = :target_user_id LIMIT 1;";
         try {
             $sth = $this->dbh->prepare($query);
             $sth->bindValue(':target_user_id', $target_user_id, PDO::PARAM_INT);
-            if ($cur_user_id !== null)
-                $sth->bindValue(':cur_user_id', $cur_user_id, PDO::PARAM_INT);
+            // if ($cur_user_id !== null)
+            //     $sth->bindValue(':cur_user_id', $cur_user_id, PDO::PARAM_INT);
             $sth->execute();
         }
         catch (PDOException $e) {
@@ -429,31 +407,31 @@ class Model
         }
         return $sth->fetch(PDO::FETCH_OBJ);
     }
-    
-    
+
+
     //***********************************************************************
     //DATA FUNCTIONS
     //***********************************************************************
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //EXAMPLE FUNCTIONS:
-    
-    
+
+
     //public function retrieves a user based on the broadcast
     //takes:    broadcast_id, optional rebroadcast_id
     //returns:  partial user_object to display data in the flip view
@@ -463,7 +441,7 @@ class Model
         $query = "SELECT user_id
                 ,username
                 ,display_name
-                , (SELECT created_at FROM Broadcast WHERE Broadcast.broadcast_id = :broadcast_id ) AS created_at, "; 
+                , (SELECT created_at FROM Broadcast WHERE Broadcast.broadcast_id = :broadcast_id ) AS created_at, ";
         if($rebroadcast_id !== null) {
             $query .= " (SELECT username
                     FROM Whiz
@@ -478,7 +456,7 @@ class Model
             $query .= " NULL AS rebroadcast_username
                         , NULL AS order_date";
         }
-        $query .= " 
+        $query .= "
                 ,avatar_hash
             FROM Whiz
             WHERE Whiz.user_id = (
@@ -497,12 +475,12 @@ class Model
             echo $e->getMessage();
         }
         return $sth->fetch(PDO::FETCH_OBJ);
-        
+
     }
     //public function *-* NOT DONE- ADD META DATA INSERTION
-    //takes:    
-    //returns:  
-    //use case: 
+    //takes:
+    //returns:
+    //use case:
     public function createBroadcast($user_id, $broadcast_text, $created_at, $images = null, $vine = null, $reply_to_broadcast_id = null)
     {
         $query = "INSERT INTO Broadcast (broadcast_text, created_at, user_id, broadcast_metadata, reply_to_broadcast_id) VALUES (:broadcast_text, :created_at, :user_id, :broadcast_metadata, ";
@@ -518,7 +496,7 @@ class Model
             $metadata->image_media = new stdClass;
             $metadata->image_media->image_count = count($images);
             $imageArray = array();
-            
+
             foreach($images as $image){
                 $imageObject = new stdClass;
                 $imageObject->image_link = $image;
@@ -526,12 +504,12 @@ class Model
             }
             $metadata->image_media->images = $imageArray;
         } else if ($vine !== null ){
-            
+
         }
         $broadcast_metadata = json_encode($metadata);
-        
+
         $broadcast_text = strip_tags($broadcast_text);
-        
+
         try {
             $sth = $this->dbh->prepare($query);
             //$sth->bindParam(":text", strip_tags(htmlentities($text)));
@@ -549,6 +527,6 @@ class Model
         }
         return ($sth->rowCount() > 0) ? true : false;
     }
-    
-    
+
+
 }

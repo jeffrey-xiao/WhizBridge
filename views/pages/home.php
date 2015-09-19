@@ -2,7 +2,7 @@
 <script>
     $(document).ready(function () {
 
-       
+
 
     }); //end document on ready
 
@@ -11,13 +11,14 @@
 </head>
 
 <body>
-    <?php require("views/components/navBarLoggedIn.php"); ?>
+
 
         <div id="content">
             <div class="wrapper">
 
                 <div class="panel left" style="position:fixed;">
-                    <?php require("views/components/homeLeftPanel.php"); ?>
+                   Welcome
+                   <?php  echo $cur_user->username; ?>
                 </div>
 
                 <div class="panel center" id="broadcast_panel">

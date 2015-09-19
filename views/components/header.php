@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    
+
 <html>
 
 <head>
@@ -9,7 +9,7 @@
     <meta name="keywords" content="Whistlet, whistlet, social, microblogging, blogging, anonymous, temporary, network, networking, new, twitter, and, snapchat, hybrid">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet/less" href="/resources/styles/style.less">
     <script src="/resources/styles/less.js"></script>
     <script src="/resources/scripts/jquery-1.9.1.min.js"></script>
-    
