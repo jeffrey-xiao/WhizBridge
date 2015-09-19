@@ -332,7 +332,7 @@ class Controller
         <a href = "/">Return to Home</a>
         <?php
     }
-    private function sendSMS () {
+    private function sendSMS ($to, $text) {
         $AccountSid = "ACb821cce27750bb57b5726316b4e4a7e1";
         $AuthToken = "32da8a446b9da43c0a3c7b426bf20c09";
 
@@ -340,9 +340,34 @@ class Controller
 
         $message = $client->account->messages->create(array(
             "From" => "+1 844-326-7428",
-            "To" => "647-262-0171",
-            "Body" => "Welcome to Twilio!",
+            "To" => $to,
+            "Body" => $text
         ));
+    }
+
+    private function processSMS () {
+        $AccountSid = "ACb821cce27750bb57b5726316b4e4a7e1";
+        $AuthToken = "32da8a446b9da43c0a3c7b426bf20c09";
+
+        $client = new Services_Twilio($AccountSid, $AuthToken);
+
+        foreach($client->account->messages as $message) {
+            //echo $message->body;
+            $msg = strtolower($message->body);
+            if($msg == 'cancel') {
+
+            }
+            else if($msg == 'complete') {
+
+            }
+            else if($msg == 'tech') {
+
+            }
+            else {
+                sendSMS($message->from, "Unknown WhizBridge text, please try again.");
+            }
+        }
+
     }
 
     private function processPayment(){
