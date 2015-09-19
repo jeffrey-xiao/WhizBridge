@@ -216,7 +216,6 @@ class Controller
                 'salt' => $curSalt
             );
             $resp       = $this->model->registerWhiz($signupInfo, true);
-
             if ($resp !== false) {
                 echo "success";
                 //$this->redirect("");

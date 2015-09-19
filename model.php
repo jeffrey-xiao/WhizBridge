@@ -358,6 +358,7 @@ class Model
                 $user['created_at'] = date('Y-m-d H:i:s');
                 $user['avatar_hash']     = md5(substr( md5( time( ) ) ,8 ) . strtolower(trim($user['email'])));
                 $this->insert("Whiz", $user);
+                $user["whiz_id"] = $this->getWhizIdForUsername($user["username"]);
                 return $this->authorizeWhiz($user, $setCookie);
             }
         }
