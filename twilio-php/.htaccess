@@ -1,0 +1,9 @@
+
+RewriteEngine On
+
+
+RewriteRule ^$ controller.php?page=home&function= [L]
+RewriteRule ^api-v1$ api.php [L,NC]
+RewriteRule ^api-v1/([a-zA-Z0-9/]*)$ api.php?function=$1 [NC,QSA,L]
+
+RewriteRule ^([a-zA-Z0-9/]+)$ controller.php?page=query&function=$1 [QSA,L]
