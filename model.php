@@ -607,4 +607,50 @@ class Model
     public function deleteJob ($job_id) {
         return $this->delete("Job", array("job_id" => $job_id));
     }
+<<<<<<< Updated upstream
+=======
+    public function checkRsvp ($job_id) {
+        $query = "SELECT * FROM JobJoin WHERE job_id = ".$job_id."";
+        try {
+            $sth = $this->dbh->prepare($query);
+            //$sth->bindParam(":text", strip_tags(htmlentities($text)));
+            $sth->bindParam(":job_id", $job_id , PDO::PARAM_INT );
+            $sth->execute();
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        return ($sth->rowCount() > 0) ? true : false;
+    }
+    
+    
+    public function APIcreateJob($name, $descr, $address, $lat, $long, $price, $email){
+        $a = $this->insert("Job", array("job_name"=>$name, 
+                                   "job_description" => $descr, 
+                                   "job_address" => $address, 
+                                   "job_latitude" => $lat, 
+                                   "job_longitude" => $job_longitude,
+                                  "job_price" => $price,
+                                  "created_at" => date('Y-m-d H:i:s')));
+        return $a;
+        
+    }
+    
+    public function APIfetchJobs($whiz_id){
+           $query = "SELECT * FROM whizbridge_db.Job WHERE job_completed IS NULL AND job_id NOT IN (select job_id from JobJoin) ORDER BY created_at DESC LIMIT 50; ";
+        try {
+            $sth = $this->dbh->prepare($query);
+            $sth->bindParam(':whiz_id', $whiz_id, PDO::PARAM_INT);
+            $sth->execute();
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        $jobs = array();
+        while ($row = $sth->fetch(PDO::FETCH_OBJ)) {
+            array_push($jobs, $row);
+        }
+        return $jobs;
+    }
+>>>>>>> Stashed changes
 }

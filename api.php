@@ -20,7 +20,8 @@ class Api
 
             "checkWhizname",
             "checkEmail",
-             
+             "fetchJobs",
+             "postJob",
              //GETS
             "getWhizData",
 
@@ -60,12 +61,12 @@ class Api
             if (strpos($_POST['user'], "@") === true) {
                 $user_id = $this->model->getWhizIdForEmail($_POST['user']);
             } else {
-                $user_id = $this->model->getWhizIdForWhizname($_POST['user']);
+                $user_id = $this->model->getWhizIdForUsername($_POST['user']);
             }
             $salt = $this->model->getSaltForWhizId($user_id);
             $pass      = hash('sha256', $salt.$_POST['password']);
             $loginInfo = array(
-                'user_id' => $user_id,
+                'whiz_id' => $user_id,
                 'password' => $pass
             );
         } else {
@@ -248,8 +249,20 @@ class Api
             echo json_encode($output);
             return; 
         }
+    } 
+    
+    private function postJob()
+    {
+        $resp = $this->model->APIcreateJob($_POST["job_name"], $_POST["job_description"], $_POST["job_address"], $_POST["job_latitude"], $_POST["job_longitude"], $_POST["job_price"], $_POST["email"]);
+        echo json_encode($resp);
     }
     
+    private function fetchJobs()
+    {
+        $user = $this->model->userForAuthHash($_GET["auth_hash"]);
+        $resp = $this->model->APIfetchJobs($user->whiz_id);
+        echo json_encode($resp);
+    }
     
 }
 
