@@ -329,6 +329,14 @@ class Model
             "user_id" => $user_id), array(PDO::PARAM_STR));
         return ($response !== false ? $response->username : false );
     }
+
+    // public function gets whiz is for job id in job join
+    public function getWhizIdForJobId ($job_id) {
+        $response = $this->objectSelect("JobJoin", array("whiz_id"), array(
+            "job_id" => $job_id), array(PDO::PARAM_INT));
+        return ($response !== false ? $response->whiz_id : false);
+    }
+
     //public function deletes auth_hash given
     //takes:    auth_hash, setCookie
     //returns:  true or false, depending on success
@@ -343,6 +351,7 @@ class Model
         }
         return $response;
     }
+
     //public function registers a user and checks for availability
     //takes:    full user array {username, display_name, email, password, salt} and setCookie
     //returns:  auth_hash if success, error code if not
@@ -363,6 +372,7 @@ class Model
             }
         }
     }
+
     //public function checks if email exists
     //takes:    email
     //returns:  true or false, depending on existence
@@ -568,6 +578,10 @@ class Model
     }
     public function takeJob ($job_id, $whiz_id) {
         return $this->insert("JobJoin", array("job_id"=>$job_id, "whiz_id" => $whiz_id));
+    }
+
+    public function cancelWhizJob ($job_id) {
+        return $this->delete("JobJoin", array("job_id" => $job_id));
     }
 
     public function checkIfJobHashExists($hash){

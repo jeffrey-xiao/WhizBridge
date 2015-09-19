@@ -81,7 +81,7 @@
             function initMap() {
                 var mapOpt = {
                     center: {lat: 43.47229, lng: -80.54486},
-                    zoom: 16
+                    zoom: 6
                 };
                 map = new google.maps.Map(document.getElementById('map'), mapOpt);
                 var infoWindow;
@@ -107,7 +107,7 @@
                     }, function() {
                         handleLocationError(true, infoWindow, map.getCenter());
                     });
-                    map.setZoom(16);
+                    map.setZoom(6);
                 } else {
                     // Browser doesn't support Geolocation
                     handleLocationError(false, infoWindow, map.getCenter());
@@ -158,14 +158,20 @@
                         var jid = locations[i][4];
                         var price = locations[i][5];
                         var m = markers[i];
+                        // console.log(jid + " " + locations[i][6]);
+                        var content = !locations[i][6] ? ('<p> Name: ' + name + '</p>'+
+                                '<p> Desc: ' + desc + '</p>' +
+                                '<p> Price: ' + price + '</p>' +
+                                '<button onclick=takeJob('+jid+')>Take Job!</button>') :
+                                ('<p> Name: ' + name + '</p>'+
+                                '<p> Desc: ' + desc + '</p>' +
+                                '<p> Price: ' + price + '</p>' +
+                                '<button onclick=completeWhizJob('+jid+')>Complete Job!</button>' +
+                                '<button onclick=cancelWhizJob('+jid+')>Cancel Job!</button>');
                         google.maps.event.addListener(m, 'click', function() {
                             map.setZoom(12);
                             map.setCenter(m.getPosition());
-                            infowindow.setContent('<p> Name: ' + name + '</p>'+
-                                '<p> Desc: ' + desc + '</p>' +
-                                '<p> Price: ' + price + '</p>' +
-                                '<button onclick=takeJob('+jid+')>Take Job!</button>'
-                                );
+                            infowindow.setContent(content);
 
                             // TODO!!!!! MAKE THIS ONCLICK
                             infowindow.open(map, this);
@@ -178,6 +184,23 @@
 
                 map.fitBounds(bounds);
             }
+            function cancelWhizJob (job_id) {
+                $.ajax({
+                    type: "POST",
+                    url: '/cancelWhizJob',
+                    data: {job_id},
+                    cache: false,
+
+                    success: function (html) {
+                        console.log(job_id);
+                        if( html == "true" ){
+                            window.location.reload();
+                        } else {
+                            //catch error here
+                        }
+                    }
+                });
+            }
             function takeJob(job_id){
                 $.ajax({
                     type: "POST",
@@ -187,7 +210,7 @@
 
                     success: function (html) {
                         if( html == "true" ){
-                            //shit was a succcess
+                            window.location.reload();
                         } else {
                             //catch error here
                         }

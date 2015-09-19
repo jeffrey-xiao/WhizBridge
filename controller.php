@@ -26,7 +26,8 @@ class Controller
             "completeJob" => "completeJob",
             "cancelJob" => "cancelJob",
             "postJob" => "postJob",
-            "sendSMS" => "sendSMS"
+            "sendSMS" => "sendSMS",
+            "cancelWhizJob" => "cancelWhizJob"
         );
         date_default_timezone_set("UTC");
         if (strlen($_GET['function']) > 0) {
@@ -134,7 +135,9 @@ class Controller
             $big_arr = array();
 
             foreach($jobs as $current){
-                array_push($big_arr, array($current->job_name,floatval( $current->job_latitude), floatval($current->job_longitude), $current->job_description, intval($current->job_id), intval($current->job_price)));
+                $response = $this->model->getWhizIdForJobId($current->job_id);
+                array_push($big_arr, array($current->job_name,floatval( $current->job_latitude), floatval($current->job_longitude), $current->job_description, intval($current->job_id), intval($current->job_price),
+                    ($response == false ? false : $response == $cur_user->whiz_id)));
             }
 
             $big_arr = json_encode($big_arr);
@@ -294,6 +297,11 @@ class Controller
         $cur_user = $this->checkAuth();
         // $a = $this->model->takeJob($_POST['job_id'], 47);
         $a = $this->model->takeJob($_POST['job_id'], $cur_user->whiz_id);
+        echo json_encode($a);
+    }
+
+    private function cancelWhizJob () {
+        $a = $this->model->cancelWhizJob($_POST['job_id']);
         echo json_encode($a);
     }
 
