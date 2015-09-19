@@ -99,12 +99,13 @@ class Controller
 
     private function jobPage($hash){
         $job = $this->model->checkIfJobHashExists($hash);
-
-        $whizCompleted = $this->model->getWhizJobCompletedForJobId($job->job_id);
-        $userCompleted = $this->model->getUserJobCompletedForJobId($job->job_id);
-
-        if($job !== false && (!$whizCompleted || !$userCompleted)){
-            $this->loadPage("job", array("job" => $job));
+        if ($job !== false){
+            $whizCompleted = $this->model->getWhizJobCompletedForJobId($job->job_id);
+            $userCompleted = $this->model->getUserJobCompletedForJobId($job->job_id);
+            if (!$whizCompleted || !$userCompleted)
+                $this->loadPage("job", array("job" => $job));
+            else
+                $this->loadPage("404", null);
         } else {
             $this->loadPage("404", null);
         }
@@ -326,7 +327,10 @@ class Controller
     }
     private function cancelJob () {
         $job_id = $_POST["job_id"];
-        echo $this->model->deleteJob($job_id);
+        ?>
+        <h2>Job successfully canceled!</h2>
+        <a href = "/">Return to Home</a>
+        <?php
     }
     private function sendSMS () {
         $AccountSid = "ACb821cce27750bb57b5726316b4e4a7e1";

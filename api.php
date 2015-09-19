@@ -260,12 +260,9 @@ class Api
     
     private function fetchJobs()
     {
-        
         $user = $this->model->userForAuthHash($_GET["auth_hash"]);
-
         $resp = $this->model->APIfetchJobs($user->whiz_id);
         echo json_encode($resp);
-        
     }
 }
 
