@@ -13,3 +13,15 @@ Braintree_Configuration::publicKey('289njc8rrdf47cwk');
 Braintree_Configuration::privateKey('e23e1e9b16adfccd3208096b42bba5a9');
 
 echo($clientToken = Braintree_ClientToken::generate());
+
+//Process payment
+$nonce = $_POST["payment_method_nonce"];
+/* Use payment method nonce here */
+
+//Amount of payment
+$amount = $_POST["payment_amount"];
+
+$result = Braintree.Transaction::sale([
+        'amount' => $amount,
+        'paymentMethodNonce' => $nonce
+    ]);
