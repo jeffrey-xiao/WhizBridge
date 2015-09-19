@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <script src="maps.js"></script>
+        <script src="google-maps-test.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH5DWHzRW5NK60dvJt3ak-pdCgs3zsdec&signed_in=true&callback=initMap"
                 async defer>
         </script>

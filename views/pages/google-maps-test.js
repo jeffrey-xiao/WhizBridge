@@ -1,4 +1,10 @@
 var map;
+var locations = [
+    ["Job 1", 1, 2],
+    ["Job 2", 2, 3],
+    ["Job 3", 3, 4]
+];
+
 function initMap() {
     var mapOpt = {
         center: {lat: 43.47229, lng: -80.54486},
@@ -33,6 +39,8 @@ function initMap() {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
     }
+
+    loadMarkers(locations);
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
