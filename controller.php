@@ -1,5 +1,6 @@
 <?php
 require("model.php");
+require "twilio-php/services/Twilio.php";
 
 class Controller
 {
@@ -25,7 +26,8 @@ class Controller
             "cancelJob" => "cancelJob",
             "postJob" => "postJob",
 
-            "checkRsvp" => "checkRsvp"
+            "checkRsvp" => "checkRsvp",
+            "sendSMS" => "sendSMS"
         );
         date_default_timezone_set("UTC");
         if (strlen($_GET['function']) > 0) {
@@ -311,7 +313,18 @@ class Controller
         $job_id = $_POST["job_id"];
         echo $this->model->deleteJob($job_id);
     }
+    private function sendSMS () {
+        $AccountSid = "ACb821cce27750bb57b5726316b4e4a7e1";
+        $AuthToken = "32da8a446b9da43c0a3c7b426bf20c09";
 
+        $client = new Services_Twilio($AccountSid, $AuthToken);
+
+        $message = $client->account->messages->create(array(
+            "From" => "+1 844-326-7428",
+            "To" => "647-262-0171",
+            "Body" => "Welcome to Twilio!",
+        ));
+    }
 }
 
 $controller = new Controller();
