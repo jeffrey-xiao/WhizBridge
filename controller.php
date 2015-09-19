@@ -233,6 +233,7 @@ class Controller
     }
     private function logout()
     {
+        echo "Logging out";
         $this->model->logoutWhiz($_COOKIE['Auth'], true);
         $this->redirect("");
     }

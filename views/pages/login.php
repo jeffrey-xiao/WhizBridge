@@ -18,7 +18,7 @@ Email: <input type="text" name="email"><br>
 <form action="postJob" method="post">
 Job Name: <input type="text" name="job_name"><br>
 Job Description: <input type="text" name="job_description"><br>
-Price: <input type="price" name = "job_price"><br>
+Price: <input type="text" name = "job_price"><br>
 <input type="submit">
 </form>
 <?php

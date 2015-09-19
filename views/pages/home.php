@@ -20,8 +20,10 @@
                    Welcome
                    <?php  echo $cur_user->username; ?>
                 </div>
-
-                <input type="submit" action="logout" name="Logout" />
+                <br>
+                <form action = "logout">
+                    <input type="submit" value="Logout" />
+                </form>
 
 
                 <div class="panel center" id="broadcast_panel">
