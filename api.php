@@ -24,7 +24,7 @@ class Api
              "fetchJobs",
              
              //GETS
-            "getWhizData",
+            "getWhizData"
 
         );
         date_default_timezone_set("UTC");
@@ -60,14 +60,14 @@ class Api
         
         if(isset($_POST['user']) && isset($_POST['password'])){
             if (strpos($_POST['user'], "@") === true) {
-                $user_id = $this->model->getWhizIdForEmail($_POST['user']);
+                $whiz_id = $this->model->getWhizIdForEmail($_POST['user']);
             } else {
-                $user_id = $this->model->getWhizIdForWhizname($_POST['user']);
+                $whiz_id = $this->model->getWhizIdForUsername($_POST['user']);
             }
-            $salt = $this->model->getSaltForWhizId($user_id);
+            $salt = $this->model->getSaltForWhizId($whiz_id);
             $pass      = hash('sha256', $salt.$_POST['password']);
             $loginInfo = array(
-                'user_id' => $user_id,
+                'whiz_id' => $whiz_id,
                 'password' => $pass
             );
         } else {
