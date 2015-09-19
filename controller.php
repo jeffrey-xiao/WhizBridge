@@ -22,7 +22,7 @@ class Controller
             "postJob" => "postJob",
             "takeJob" => "takeJob",
             "completeJob" => "completeJob",
-            "cancelJob" => "cancelJob"
+            "cancelJob" => "cancelJob",
             "postJob" => "postJob"
         );
         date_default_timezone_set("UTC");
@@ -122,7 +122,9 @@ class Controller
             $this->loadPage("login", null);
         } else { //load home page
             $cur_user    = $this->model->getWhizData($cur_user->whiz_id);
+            $jobs = $this->model->fetchJobs($cur_user->whiz_id);
             $this->loadPage("home", array(
+                "jobs" => $jobs,
                 "cur_user" => $cur_user
             ), null);
         }

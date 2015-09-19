@@ -38,8 +38,6 @@
                 <form action = "logout">
                     <input type="submit" value="Logout" />
                 </form>
-
-<<<<<<< HEAD
                 <div class="Job Panel">
                     <table>
                         <tr>
@@ -66,9 +64,6 @@
                         }
                     ?>
                     </table>
-=======
-
->>>>>>> a0bd368225841305a1bb1a3a7eb5f22b7a367f1c
                 <div class="panel center" id="broadcast_panel">
                     <!--Add broadcasts here-->
                 </div>
