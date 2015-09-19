@@ -95,7 +95,8 @@
                         var marker = new google.maps.Marker({
                             position: pos,
                             map: map,
-                            title: 'My Location'
+                            title: 'My Location',
+                            icon: 'resources/home.png'
                         });
 
                     }, function() {
