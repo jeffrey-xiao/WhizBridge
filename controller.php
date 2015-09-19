@@ -202,7 +202,7 @@ class Controller
     private function postJob(){
         //todo with ${POST}
         $coordinates = $this->getCoordinates($_POST["address"]);
-        $this->model->createJob($_POST["job_name"], $_POST["job_description"], $_POST["job_price"], $coordinates[0], $coordinates[1]);
+        $this->model->createJob($_POST["job_name"], $_POST["job_description"], $_POST["job_price"], $coordinates[0], $coordinates[1], $_POST["email"]);
         // echo ($_POST["job_name"].",".$_POST["job_description"].",".$_POST["job_price"].",".$coordinates[0].",".$coordinates[1]);
         $this->loadPage("jobSuccess", array(), null);
 

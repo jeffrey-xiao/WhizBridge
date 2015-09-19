@@ -576,7 +576,7 @@ class Model
         return $jobs;
     }
 
-    public function createJob($name, $descr, $price, $lat, $long){
+    public function createJob($name, $descr, $price, $lat, $long, $email){
         $info = array("job_name"=> $name,
             "job_description"=> $descr,
              "job_price"=>$price,
@@ -592,7 +592,7 @@ class Model
         $msg = md5($info["job_name"].$info["created_at"]);
         echo $msg;
         // send email
-        mail("jeffrey.xiao1998@gmail.com","Job Created!",$msg);
+        mail(email,"Job Created!",$msg);
     }
     public function takeJob ($job_id, $whiz_id) {
         return $this->insert("JobJoin", array("job_id"=>$job_id, "whiz_id" => $whiz_id));
