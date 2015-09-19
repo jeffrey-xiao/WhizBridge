@@ -25,3 +25,4 @@ $result = Braintree.Transaction::sale([
         'amount' => $amount,
         'paymentMethodNonce' => $nonce
     ]);
+echo($nonce . " for $" . $amount . "\n");
