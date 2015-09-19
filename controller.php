@@ -94,6 +94,9 @@ class Controller
 
     private function jobPage($hash){
         $job = $this->model->checkIfJobHashExists($hash);
+
+
+
         if($job !== false){
             $this->loadPage("job", array("job" => $job));
         } else {
@@ -122,7 +125,17 @@ class Controller
             $this->loadPage("login", null);
         } else { //load home page
             $cur_user    = $this->model->getWhizData($cur_user->whiz_id);
-            $jobs = $this->model->fetchJobs($cur_user->whiz_id);
+            $jobs = $this->model->fetchJobs($cur_user->whiz_id); // This is the line that FETCHES JOB LIST
+
+
+            $big_arr = array();
+
+            foreach($jobs as $current){
+                array_push($big_arr, array($current->job_name,floatval( $current->job_latitude), floatval($current->job_longitude) ) );
+            }
+
+            $big_arr = json_encode($big_arr);
+
             $this->loadPage("home", array(
                 "jobs" => $jobs,
                 "cur_user" => $cur_user

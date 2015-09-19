@@ -552,7 +552,7 @@ class Model
         $info = array("job_name"=> $name,
             "job_description"=> $descr,
              "job_price"=>$price,
-             "job_latitiude" => $lat,
+             "job_latitude" => $lat,
               "job_longitude" => $long,
               "created_at" => date('Y-m-d H:i:s'),
               "job_hash" => md5($name .date('Y-m-d H:i:s') ) );

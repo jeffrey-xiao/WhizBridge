@@ -57,7 +57,7 @@
                                 <td> <?php echo $job->job_name; ?> </td>
                                 <td> <?php echo $job->job_description; ?> </td>
                                 <td> <?php echo $job->job_price; ?> </td>
-                                <td> <?php echo ($job->job_latitiude.",".$job->job_longitude); ?> </td> </tr>
+                                <td> <?php echo ($job->job_latitude.",".$job->job_longitude); ?> </td> </tr>
                         <!--     echo "<tr>";
                             echo "<td> ($job->job_name) </td>";
                             echo "<td> ($job->job_description) </td>";
