@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    <title>WhizBridge</title>
+    <title>Whistlet</title>
     <meta name="description" content="Say what you want. No strings attached.">
-    <meta name="keywords" content="WhizBridge, whizbridge">
+    <meta name="keywords" content="Whistlet, whistlet, social, microblogging, blogging, anonymous, temporary, network, networking, new, twitter, and, snapchat, hybrid">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <!--    <link rel="stylesheet" href="/style.css">-->
