@@ -31,8 +31,8 @@
                 <div id="map" style="width:500px; height:500px"></div>
                 <div class="panel left" style="position:fixed;">
                    Welcome
-                   <?php  echo $cur_user->username . '<br>';
-                        echo 'Available jobs:';
+                   <?php  echo '<p>'. $cur_user->username . '</p><br>';
+                        echo '<p>Available Jobs:</p>';
                     ?>
                 </div>
 
@@ -40,16 +40,16 @@
                 <br>
                 <br>
                 <form action = "logout">
-                    <input type="submit" value="Logout" />
+                    <input type="submit" value="Log Out" />
                 </form>
                 <div class="Job Panel">
                     <table>
                         <tr>
-                            <td> Jod Id </td>
-                            <td> Job Name </td>
-                            <td> Job Description </td>
-                            <td> Job price </td>
-                            <td> Job Coord </td>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Coordinates</th>
                         </tr>
                     <?php foreach ($jobs as $job){ ?>
                             <tr>
