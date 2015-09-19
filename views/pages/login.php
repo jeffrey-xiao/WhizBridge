@@ -34,6 +34,19 @@ Email: <input type = "text" name = "email"> <br>
     Cardholder Name: <input data-braintree-name="cardholder_name" value=""> <br>
     <input type="submit" id="submit" value="Pay and Submit">
 </form>
+
+<h1>About</h1>
+<p>This is bullshit</p>
+
+<h1>FAQ</h1>
+<h2>What is this service?</h2>
+<p>Smoke weed everyday</p>
+<h2>What is this service?</h2>
+<p>Smoke weed everyday</p>
+<h2>What is this service?</h2>
+<p>Smoke weed everyday</p>
+<h2>What is this service?</h2>
+<p>Smoke weed everyday</p>
 <?php
 
 ?>
