@@ -1,3 +1,4 @@
-<h2> Job Successfully Posted </h2>
+<?php
+echo "Job successfully posted!"; ?>
 <br>
-<a href="/" > Back to Home </a>
+<a href="/" > back to home </a>
