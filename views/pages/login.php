@@ -2,28 +2,29 @@
   <div id = "createButton" class = "dropdownButton"><h1>Create Job</h1></div>
   <div id = "createForm" class = "dropdownBody" style = "display:none">
     <form action="postJob" method="post">
-        <div class = "leftFields">
-          Job Name:<br>
-          Job Description:<br>
-          Price:<br>
-          Address:<br>
-          Email:<br>
-          Card Number:<br>
-          Expiration Date:<br>
-          CVV:<br>
-          Billing Address Line 1:<br>
-          Billing Address Line 2:<br>
-          City:<br>
-          State/Province:<br>
-          Country:<br>
-          Postal Code:<br>
-          Cardholder Name:<br>
+        <div class = "formBody">
+		<div class = "leftFields">
+          Job Name: <br>
+          Job Description: <br>
+          Price: <br>
+          Address: <br>
+          Email: <br>
+          Card Number: <br>
+          Expiration Date: <br>
+          CVV: <br>
+          Billing Address Line 1: <br>
+          Billing Address Line 2: <br>
+          City: <br>
+          State/Province: <br>
+          Country: <br>
+          Postal Code: <br>
+          Cardholder Name: <br>
         </div>
         <div class = "rightFields">
            <input type="text" name="job_name"><br>
            <input type="text" name="job_description"><br>
            <input type="text" name = "job_price"><br>
-           <input type = "text" name = "address" value = "1 Abbey Rd, Welland, ON L3C 7L1"><br>
+           <input type = "text" name = "address"><br>
            <input type = "text" name = "email"><br>
            <input data-braintree-name="number" value=""><br>
            <input data-braintree-name="expiration_date" value=""><br>
@@ -35,14 +36,18 @@
            <input data-braintree-country="country" value=""><br>
            <input data-braintree-name="postal_code" value=""><br>
            <input data-braintree-name="cardholder_name" value=""><br>
-          </div>
-
-
-         <input type="submit" id="submit" value="Pay and Submit">
+        </div>
+		
+		</div>
+		<br>
+		<div class = "submit">
+			<input type="submit" id="submit" value="Pay and Submit">
+		</div>
+        
     </form>
   </div>
   <div id = "loginButton" class = "dropdownButton"><h1>Login</h1></div>
-  <div id = "loginForm" style = "display:none">
+  <div id = "loginForm" class = "dropdownBody" style = "display:none">
     <form action="attemptLogin" method="post">
         <table align = "center">
           <tr> <td style="float:right"> Username: </td> <td> <input type="text" name="username"> </td> </tr>
@@ -52,7 +57,7 @@
     </form>
   </div>
   <div id = "registerButton" class = "dropdownButton"><h1>Register</h1></div>
-  <div id = "registerForm" style = "display:none">
+  <div id = "registerForm" class = "dropdownBody" style = "display:none">
     <form action="attemptRegistration" method="post">
         <table align = "center">
           <tr> <td style="float:right">Username:</td> <td> <input type="text" name="username"> </td></tr>
