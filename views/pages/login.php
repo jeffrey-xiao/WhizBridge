@@ -33,7 +33,7 @@ Email: <input type = "text" name = "email"> <br>
     Country: <input data-braintree-country="country" value=""> <br>
     Postal Code: <input data-braintree-name="postal_code" value=""> <br>
     Cardholder Name: <input data-braintree-name="cardholder_name" value=""> <br>
-    <input type="submit" id="submit" value="Pay and Submit">
+    <input type="submit" id="submit" value="Pay & Submit">
 </form>
 <?php
 
