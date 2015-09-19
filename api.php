@@ -260,9 +260,13 @@ class Api
     
     private function fetchJobs()
     {
-        $user = $this->model->userForAuthHash($_GET["auth_hash"]);
-        $resp = $this->model->APIfetchJobs($user->whiz_id);
-        echo json_encode($resp);
+        $a = new stdClass;
+        if($user = $this->model->userForAuthHash($_GET["auth_hash"])){
+            $a->status = 1;
+            $resp = $this->model->APIfetchJobs($user->whiz_id);
+            $a->jobs = $resp;
+        echo json_encode($a);
+        }
     }
 }
 
