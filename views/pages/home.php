@@ -29,20 +29,11 @@
 
             <div class="wrapper">
                 <div id="map" style="width:500px; height:500px"></div>
-                <div class="panel left" style="position:fixed;">
-                   Welcome
-                   <?php  echo '<p>'. $cur_user->username . '</p><br>';
-                        echo '<p>Available Jobs:</p>';
-                    ?>
-                </div>
 
-
-                <br>
-                <br>
-                <form action = "logout">
-                    <input type="submit" value="Log Out" />
-                </form>
                 <div class="Job Panel">
+                    <?php
+                    echo '<h2>Welcome ' . $cur_user->username . '!</h2>';
+                    ?>
                     <table>
                         <tr>
                             <th>ID</th>
@@ -68,6 +59,9 @@
                         }
                     ?>
                     </table>
+                    <form action = "logout">
+                        <input type="submit" value="Log Out" />
+                    </form>
                 <div class="panel center" id="broadcast_panel">
                     <!--Add broadcasts here-->
                 </div>
