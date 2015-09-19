@@ -22,6 +22,7 @@ class Controller
             "postJob" => "postJob"
 
 
+
         );
         date_default_timezone_set("UTC");
         if (strlen($_GET['function']) > 0) {
@@ -111,8 +112,9 @@ class Controller
             $this->loadPage("login", null);
         } else { //load home page
             $cur_user    = $this->model->getWhizData($cur_user->whiz_id);
+            $jobs = $this->model->fetchJobs($cur_user->whiz_id);
             $this->loadPage("home", array(
-                "cur_user" => $cur_user
+                "cur_user" => $cur_user, "jobs" => $jobs
             ), null);
         }
     }
