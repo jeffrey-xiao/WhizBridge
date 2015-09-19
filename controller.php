@@ -156,12 +156,14 @@ class Controller
 
         $json = json_decode($response,TRUE); //generate array object from the response from the web
 
-        return ($json['results'][0]['geometry']['location']['lat'].",".$json['results'][0]['geometry']['location']['lng']);
+        return array($json['results'][0]['geometry']['location']['lat'], $json['results'][0]['geometry']['location']['lng']);
 
     }
     private function postJob(){
         //todo with ${POST}
-        $this->model->createJob($_POST["job_name"], $_POST["job_description"], $_POST["job_price"]);
+        $coordinates = $this->getCoordinates($_POST["address"]);
+        $this->model->createJob($_POST["job_name"], $_POST["job_description"], $_POST["job_price"], $coordinates[0], $coordinates[1]);
+        // echo ($_POST["job_name"].",".$_POST["job_description"].",".$_POST["job_price"].",".$coordinates[0].",".$coordinates[1]);
         $this->loadPage("jobSuccess", array(), null);
 
     }

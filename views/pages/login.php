@@ -19,7 +19,7 @@ Email: <input type="text" name="email"><br>
 Job Name: <input type="text" name="job_name"><br>
 Job Description: <input type="text" name="job_description"><br>
 Price: <input type="text" name = "job_price"><br>
-Address: <input type = "text" name = "address" value = "740 Story Rd San Jose CA 95122"><br>
+Address: <input type = "text" name = "address" value = "1 Abbey Rd, Welland, ON L3C 7L1"><br>
 <input type="submit">
 </form>
 <?php
