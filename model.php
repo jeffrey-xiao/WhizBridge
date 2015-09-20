@@ -6,8 +6,11 @@ class Model
     {
         /*** mysql hostname ***/
 <<<<<<< HEAD
+<<<<<<< HEAD
         
 =======
+=======
+>>>>>>> origin/master
 
         /*** mysql hostname ***/
         $hostname = '127.0.0.1';
@@ -18,6 +21,9 @@ class Model
         /*** mysql dbname ***/
         $dbname   = 'whizbridge_db';
 
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
         try {
             $this->dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
