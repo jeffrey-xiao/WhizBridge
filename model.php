@@ -5,12 +5,6 @@ class Model
     function __construct()
     {
         /*** mysql hostname ***/
-<<<<<<< HEAD
-<<<<<<< HEAD
-        
-=======
-=======
->>>>>>> origin/master
 
         /*** mysql hostname ***/
         $hostname = '127.0.0.1';
@@ -21,10 +15,6 @@ class Model
         /*** mysql dbname ***/
         $dbname   = 'whizbridge_db';
 
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
         try {
             $this->dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
             $this->dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
@@ -674,6 +664,7 @@ class Model
                                    "job_address" => $address,
                                    "job_latitude" => $lat,
                                    "job_longitude" => $long,
+                                        "job_hash" => md5($name . date('Y-m-d H:i:s')),
                                   "job_price" => $price,
                                   "created_at" => date('Y-m-d H:i:s')));
         return $a;
@@ -695,5 +686,15 @@ class Model
             array_push($jobs, $row);
         }
         return $jobs;
+    }
+    
+    public function APIfetchIndividualJob($job_id){
+        return $this->objectSelect("Job", array("job_id", "job_name", 
+                                                       "job_description", 
+                                                       "buyer_id", 
+                                                       "created_at", 
+                                                       "job_price", 
+                                                       "job_latitude", "job_longitude", "job_address", "job_hash" , "job_completed"), array(
+            "job_id" => $job_id), array(PDO::PARAM_INT));
     }
 }
