@@ -15,7 +15,7 @@ $client = new Services_Twilio($AccountSid, $AuthToken);
 foreach($client->account->messages as $message) {
     //echo $message->body;
     $msg = strtolower($message->body);
-    $content = "";
+    $content = "TestTest123";
     if($msg == 'cancel' && getJobIdForPhonenumber($message->from) != false) {
         cancelWhizJob(getJobIdForPhonenumber($message->from));
         $content = "Job cancelled.";
