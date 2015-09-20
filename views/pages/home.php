@@ -28,13 +28,13 @@
         <div id="content">
 
             <div class="wrapper">
-                <div id="map" style="width:500px; height:500px"></div>
+                <div id="map" style="width:860px; height:800px"></div>
 
-                <div class="Job Panel">
+                <div class="Job Panel" style="margin: 0 auto; text-align: center">
                     <?php
                     echo '<h2>Welcome ' . $cur_user->username . '!</h2>';
                     ?>
-                    <table>
+                    <table style="margin: 0 auto">
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
@@ -47,8 +47,8 @@
                                 <td> <?php echo $job->job_id; ?> </td>
                                 <td> <?php echo $job->job_name; ?> </td>
                                 <td> <?php echo $job->job_description; ?> </td>
-                                <td> <?php echo $job->job_price; ?> </td>
-                                <td> <?php echo ($job->job_latitude.",".$job->job_longitude); ?> </td> </tr>
+                                <td> <?php echo "$".$job->job_price; ?> </td>
+                                <td> <?php echo "(".$job->job_latitude.",".$job->job_longitude.")"; ?> </td> </tr>
                         <!--     echo "<tr>";
                             echo "<td> ($job->job_name) </td>";
                             echo "<td> ($job->job_description) </td>";
@@ -59,6 +59,7 @@
                         }
                     ?>
                     </table>
+                    <br> <br>
                     <form action = "logout">
                         <input type="submit" value="Log Out" />
                     </form>
@@ -171,12 +172,12 @@
                             } else {
                                 content = ('<p> Name: ' + name + '</p>'+
                                     '<p> Desc: ' + desc + '</p>' +
-                                    '<p> Price: ' + price + '</p>' +
+                                    '<p> Price: $' + price + '</p>' +
                                     '<button onclick=takeJob('+jid+')>Take Job!</button>');
                             }
                             google.maps.event.addListener(m, 'click', function() {
-                                map.setZoom(12);
-                                map.setCenter(m.getPosition());
+                                // map.setZoom(12);
+                                // map.setCenter(m.getPosition());
                                 infowindow.setContent(content);
 
                                 // TODO!!!!! MAKE THIS ONCLICK
