@@ -114,7 +114,7 @@
   <p>This service is a distributed tech support network. Both customers and suppliers are individuals, with no corporate involvement.</p>
   <h2>How is this service secure?</h2>
   <p>Both the customer and the Whiz must agree on a transaction for money to exchange hands. In addition, our system is protected through a series of industry-standard encryption practices, including the utilization of Braintree to secure credit card and paypal payments.</p>
-  <h2>What is the quality of this service??</h2>
+  <h2>What is the quality of this service?</h2>
   <p>Quality is guarantered through a certification program, with Whizzes progressing through a series of increasingly advanced examinations in order to participate in this market. This ensures that the customers always receive quality tech support services.</p>
   <h2>How much does this service cost?</h2>
   <p>Costs are entirely determined by the customer, with a naturally adjusting market. Customers who set their prices too low, will eventually adjust their prices up to obtain the required service. Customers who price their service calls too high, will obtain faster service at a higher monetary cost.</p>
