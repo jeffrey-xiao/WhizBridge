@@ -1,5 +1,5 @@
 <?php
-echo "Job Name: " . $job->jpb_name."<br>";
+echo "Job Name: " . $job->job_name."<br>";
 echo "Job Description: " . $job->job_description."<br>";
 echo "Job Price: " . $job->job_price."<br>";
 ?>

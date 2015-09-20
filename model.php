@@ -14,7 +14,10 @@ class Model
         $password = '123';
         /*** mysql dbname ***/
         $dbname   = 'whizbridge_db';
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
         try {
             $this->dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
             $this->dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
