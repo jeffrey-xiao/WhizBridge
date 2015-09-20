@@ -346,27 +346,6 @@ class Controller
     }
 
     private function processSMS () {
-        $AccountSid = "ACb821cce27750bb57b5726316b4e4a7e1";
-        $AuthToken = "32da8a446b9da43c0a3c7b426bf20c09";
-
-        $client = new Services_Twilio($AccountSid, $AuthToken);
-
-        foreach($client->account->messages as $message) {
-            //echo $message->body;
-            $msg = strtolower($message->body);
-            if($msg == 'cancel') {
-
-            }
-            else if($msg == 'complete') {
-
-            }
-            else if($msg == 'tech') {
-
-            }
-            else {
-                sendSMS($message->from, "Unknown WhizBridge text, please try again.");
-            }
-        }
 
     }
 
