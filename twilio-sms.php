@@ -36,6 +36,18 @@ if ($msg == 'escape') {
     {
         $content = "Job submitted, payment processing.";
     }
+    else if(substr($msg, 0, 7) == 'jeffrey')
+    {
+        $content = "Job submitted, payment processing.";
+    }
+    else if(substr($msg, 0, 6) == 'george')
+    {
+        $content = "Job submitted, payment processing.";
+    }
+    else if(substr($msg, 0, 3) == 'ben')
+    {
+        $content = "Job submitted, payment processing.";
+    }
 else {
     $content = "Unknown WhizBridge text, please try again.";
 }
