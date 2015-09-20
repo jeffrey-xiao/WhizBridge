@@ -5,7 +5,14 @@ class Model
     function __construct()
     {
         /*** mysql hostname ***/
-        
+        /*** mysql hostname ***/
+        $hostname = '127.0.0.1';
+        /*** mysql username ***/
+        $username = 'root';
+        /*** mysql password ***/
+        $password = '123';
+        /*** mysql dbname ***/
+        $dbname   = 'whizbridge_db';
         try {
             $this->dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
             $this->dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
@@ -586,7 +593,7 @@ class Model
         $msg = md5($info["job_name"].$info["created_at"]);
         echo $msg;
         // send email
-        mail(email,"Job Created!",$msg);
+        mail($email,"Job Created!",$msg);
     }
     public function takeJob ($job_id, $whiz_id) {
         return $this->insert("JobJoin", array("job_id"=>$job_id, "whiz_id" => $whiz_id));
