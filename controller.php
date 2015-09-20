@@ -1,7 +1,7 @@
 <?php
 require("model.php");
-require "twilio-php/services/Twilio.php";
-require "braintree-php/lib/Braintree.php";
+require ("twilio-php/Services/Twilio.php");
+require ("braintree-php/lib/Braintree.php");
 
 class Controller
 {

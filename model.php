@@ -5,13 +5,7 @@ class Model
     function __construct()
     {
         /*** mysql hostname ***/
-        $hostname = '127.0.0.1';
-        /*** mysql username ***/
-        $username = 'root';
-        /*** mysql password ***/
-        $password = '123';
-        /*** mysql dbname ***/
-        $dbname   = 'whizbridge_db';
+        
         try {
             $this->dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
             $this->dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);

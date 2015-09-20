@@ -255,7 +255,11 @@ class Api
      private function postJob()
     {
         $resp = $this->model->APIcreateJob($_POST["job_name"], $_POST["job_description"], $_POST["job_address"], $_POST["job_latitude"], $_POST["job_longitude"], $_POST["job_price"], $_POST["email"]);
-        echo json_encode($resp);
+         if($resp){
+             $a = new stdClass();
+             $a->status = 1;
+        echo json_encode($a);
+         }
     }
     
     private function fetchJobs()
