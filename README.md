@@ -1,3 +1,3 @@
 # WhizBridge
 
-This is WhizBridge
+A web and iOS application that provides a buyer-oriented markerplace for tech support providers and the users who need them. The application uses <a href = "https://www.twilio.com/docs/api/rest" target = "blank">Twilio</a> and <a href = "https://developers.braintreepayments.com/">BrainTree</a> in order to make payments and orders easy and convenient. For people who needed the service, the entire process is accountless, meaning that you do not need to disclose confidential information to create an account. Each order is hashed and transformed into a temporary link that expires once the job is canceled or completed. The orders are also tagged by location and can be searched by price and job description. The entire process is discrete, convenient, and secure.
